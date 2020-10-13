@@ -1,0 +1,26 @@
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="deleteDetail<%= ise.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header bg-danger text-light d-flex justify-content-center">
+        <p class="heading m-0 font-weight-bold">Are you sure?</p>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <i class="fas fa-times fa-3x text-danger"></i>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center justify-content-center">
+        <button class="btn btn-outline-danger delete_id" data-id="<%= ise.id %>">Yes</button>
+        <button type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+

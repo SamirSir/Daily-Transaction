@@ -1,0 +1,34 @@
+<% if !ises.empty? %>
+
+    <% ise_type = ises[0].has_attribute?('source') ? "source" : ises[0].has_attribute?('spent_on') ? "spent_on" : "saved_on" %>
+    <% ise_title = ises[0].has_attribute?('source') ? "Income" : ises[0].has_attribute?('spent_on') ? "Expense" : "Saving" %>
+    
+    <div class="font-weight-bold text-center text-light py-2" style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;"><%= ise_title %> Details</div>
+
+    <% ises.each do |ise| %>
+        
+        <div class="row my-2" style="background: lightgrey; border-radius: 7px;">
+            <div class="col-sm-8 my-2">
+                <span><strong><%= ise_type.capitalize %>:</strong> <%= ise[ise_type].truncate(15) %></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                <span><strong>Description:</strong> <%= ise.description.truncate(15) %></span>
+                <div><strong>Amount:</strong> <%= ise.amount %></div>
+            </div>
+
+            <div class="col-sm-4 my-2">
+                <button class="btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#viewDetail<%= ise.id %>">View</button>
+                <button class="btn btn-warning btn-sm m-1" data-toggle="modal" data-target="#editDetail<%= ise.id %>">Edit</button>
+                <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteDetail<%= ise.id %>">Delete</button>
+
+                <%# modal partial %>
+                <%= render 'layouts/view_detail', ise: ise, ise_type: ise_title %>
+                <%= render 'layouts/edit_detail',  ise: ise, edit_action: edit_action, heading: 'Edit '+ise_title %>
+                <%= render 'layouts/delete_detail', ise: ise %>
+            </div>
+        </div>  
+    <% end %>
+
+<% else %>
+    <div class="h1 font-weight-bold text-danger text-center mt-4">
+        <span style="text-shadow: 0 0 3px red;">Opps!<br> you don't have any data </span><br> 😕 
+    </div>
+<% end %>

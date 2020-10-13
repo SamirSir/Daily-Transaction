@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  saved_on: MyString
+  amount: 9.99
+  description: MyString
+  user: one
+
+two:
+  saved_on: MyString
+  amount: 9.99
+  description: MyString
+  user: two

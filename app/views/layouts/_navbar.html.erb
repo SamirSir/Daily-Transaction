@@ -1,0 +1,29 @@
+<nav class="nav nav-fill nav-tabs flex-column flex-sm-row font-weight-bolder bg-dark" >
+    <% if user_signed_in? %>
+        <%= link_to "Home", root_path, class: "nav-item nav-link  text-light " %>
+        <%= link_to "Income", incomes_path, class: "nav-item nav-link  text-light " %>
+        <%= link_to "Saving", savings_path, class: "nav-item nav-link  text-light " %>
+        <%= link_to "Expenses", expenses_path, class: "nav-item nav-link  text-light " %>
+
+        <div class="nav-item dropdown">
+            <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><%=  user_signed_in? ? username(current_user.email) : "Login" %></a>
+            <div class="dropdown-menu">
+                
+                <% if current_user.admin %>
+                    <%= link_to 'Admin Panel', rails_admin_path, class: "dropdown-item font-weight-bolder" %>
+                    <div class="dropdown-divider"></div>
+                <% end %>
+                <%= link_to 'Change Password', edit_user_registration_path, class: "dropdown-item font-weight-bolder" %>
+                <div class="dropdown-divider"></div>
+                <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item font-weight-bolder" %>
+            </div>
+        </div>
+    <% else %>
+        <%= link_to "Sign up", new_user_registration_path, class: "nav-item nav-link  text-light"%>
+        <%= link_to "Login", new_user_session_path, class: "nav-item nav-link  text-light"%>
+    <% end %>
+</nav>
+
+
+
+

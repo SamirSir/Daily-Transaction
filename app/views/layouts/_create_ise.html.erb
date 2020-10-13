@@ -1,0 +1,88 @@
+
+<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open modal</button> %>
+
+<!-- The Modal -->  
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-success text-light">
+                <h4 class="modal-title">Create <%= heading %></h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body text-left font-weight-bold">
+                <form accept-charset="UTF-8" action= "<%= create_action %>" method="post" autocomplete="off" class="was-validated">
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" placeholder="Title" class="form-control" name="title" id="title" required>
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="amount">Amount</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" placeholder="Amount" class="form-control" name="amount" id="amount" required step="any" min="0">
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" placeholder="Description" class="form-control" name="description" id="description" required>
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col">
+                            <button type="submit" class="btn btn-success" id="create">Create</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            </div>           
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        
+    </div>
+</div>
+    
+
+<script type="text/javascript">
+$(function(){
+    
+    // clearing the modal input after submit
+    // $(".modal-body input").val("");
+    // $("#myModal").modal('hide');
+
+});
+</script>

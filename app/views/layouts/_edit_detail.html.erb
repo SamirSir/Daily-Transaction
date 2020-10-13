@@ -1,0 +1,85 @@
+
+<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open modal</button> %>
+
+<!-- The Modal -->  
+<div class="modal fade" id="editDetail<%= ise.id %>">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-warning">
+                <h4 class="modal-title"><%= heading %></h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body text-left font-weight-bold">
+                <form accept-charset="UTF-8" action= "<%= edit_action %>" method="post" autocomplete="off" class="was-validated">
+
+                <%# Special pattern  for put through HTML %>
+                <input type="hidden" name="id" value="<%= ise.id %>">
+                
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="title">Title</label>
+                        </div>
+                        <div class="col-9">
+                            <% if ise.has_attribute?('source')%>
+                            <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.source %>" required>
+                            <% elsif ise.has_attribute?('saved_on') %>
+                                <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.saved_on %>" required>
+                            <% elsif ise.has_attribute?('spent_on') %>
+                                <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.spent_on %>" required>
+                            <% end %>
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="amount">Amount</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" placeholder="Amount" class="form-control" name="amount" id="amount" value="<%= ise.amount %>" required step="any" min="0">
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" placeholder="Description" class="form-control" name="description" id="description" value="<%= ise.description %>" required>
+                            <%# <div class="valid-feedback">Valid.</div>
+                            <div class="invalid-feedback">Check this checkbox to continue.</div> %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col">
+                            <button type="submit" class="btn btn-warning" id="edit">Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+            </div>           
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+        
+    </div>
+</div>

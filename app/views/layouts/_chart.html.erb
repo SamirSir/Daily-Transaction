@@ -1,0 +1,52 @@
+<%# total ISE %>
+<hr>
+<div class="text-center">
+    <h5 class="font-weight-bold">Total <%= ise_type %>:<i> Rs. <%= total_ise_amount ise %></i></h5> 
+</div>
+<hr>
+<%# chart %>
+<% if !ise.empty? %>
+    <div class="text-center mt-2">
+        <select id="chart_type" class="btn btn-success w-75" >
+            <option value="column_chart">Column Chart</option>
+            <option value="bar_chart">Bar Chart</option>
+            <option value="pie_chart">Pie Chart</option>
+        </select>
+    </div>
+
+    <div class="chart_list mt-2">
+        <div class="chart " id="column_chart">
+            <%= column_chart ise, xtitle: xtitle, ytitle: "Amount (Rs.)", title: "#{ise_type} Details in chart" %>
+        </div>
+
+        <div class="chart hide" id="bar_chart">
+            <%= bar_chart ise, xtitle: "Amount (Rs.)" , ytitle: xtitle, title: "#{ise_type} Details in chart" %>
+        </div>
+
+        <div class="chart hide" id="pie_chart">
+            <%= pie_chart ise, title: "#{ise_type} Details in chart" %>
+        </div>
+    </div>  
+<% end %>
+
+
+
+<script type="text/javascript">
+
+$( document ).on('turbolinks:load', function() {
+    // $("#chart_type").trigger("reset");
+    // $("#chart_type").get(0).reset();
+    // $("#chart_type")[0].reset();
+  $("#chart_type").val("column_chart");
+});
+
+$(function(){
+
+    $("#chart_type").on("change", function(){
+        var chart_type = $(this).val();
+        $('div.chart').hide();
+        $("#"+chart_type).show(900);
+    });
+      
+}); 
+</script>

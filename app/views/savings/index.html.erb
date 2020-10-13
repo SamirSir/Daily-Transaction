@@ -1,0 +1,55 @@
+<div class="row" style="min-height: 100vh;">
+
+
+    
+    <%# analysis panel %>
+    <div class="col-md-2" style="background: lightgrey;">
+        <%= render 'layouts/side_panel', name: "Saving", create_action: "/savings/create" %>
+    </div>
+
+    <%# main body %>
+    <div class="col-md-10" style="background:e3a5f0;"> 
+        <div class="row m-auto">
+            <%# record %>
+            <div class="col-md-8">
+                <%= render 'layouts/all_ise', ises: @savings, edit_action: 'savings/edit' %>
+            </div>
+
+            <%# info %>
+            <div class="col-md-4">
+                <%= render 'layouts/chart', ise: @savings_for_graph, ise_type: "Saving", xtitle: "Saved On" %>
+            </div>  
+           
+        </div>
+    </div>
+    
+</div>
+
+
+<script type="text/javascript">
+$(function(){
+
+    // note put scripts in  main page rather than partial
+    // delete operation of ISE
+    $("button.delete_id").on("click", function(){
+        var delete_ise = $(this).attr('data-id');
+        console.log(delete_ise);
+
+        $.ajax({
+            url: 'savings/delete',
+            type: 'delete',
+            dataType: 'json',
+            data: {id: delete_ise},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+
+    });
+      
+}); 
+</script>
