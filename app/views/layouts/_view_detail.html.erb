@@ -17,6 +17,8 @@
                     <strong>Spent On:</strong> <%= ise.spent_on %>
                 <% elsif ise.has_attribute?('saved_on') %>
                     <strong>Saved On:</strong> <%= ise.saved_on %>
+                <% elsif ise.has_attribute?('loan_from') %>
+                    <strong>Loan From:</strong> <%= ise.loan_from %>
                 <% end %>
                 </p>
                 <p><strong>Amount:</strong>  Rs.<%= ise.amount %> </p>

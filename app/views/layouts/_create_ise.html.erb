@@ -15,14 +15,16 @@
             <!-- Modal body -->
             <div class="modal-body text-left font-weight-bold">
                 <form accept-charset="UTF-8" action= "<%= create_action %>" method="post" autocomplete="off" class="was-validated">
+                <% title = create_action.split('/')[1] == 'incomes' ? "Source" : create_action.split('/')[1] == 'savings' ? "Saved On" : create_action.split('/')[1] == 'expenses' ? "Spent On" : "Loan From" %>
 
                 <div class="form-group">
                     <div class="row m-auto">
+
                         <div class="col-3">
-                            <label for="title">Title</label>
+                            <label for="title"><%= title %></label>
                         </div>
                         <div class="col-9">
-                            <input type="text" placeholder="Title" class="form-control" name="title" id="title" required>
+                            <input type="text" placeholder="<%= title %> . . ." class="form-control" name="title" id="title" required>
                             <%# <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Check this checkbox to continue.</div> %>
                         </div>
@@ -35,7 +37,7 @@
                             <label for="amount">Amount</label>
                         </div>
                         <div class="col-9">
-                            <input type="number" placeholder="Amount" class="form-control" name="amount" id="amount" required step="any" min="0">
+                            <input type="number" placeholder="Amount: Rs. ..." class="form-control" name="amount" id="amount" required step="any" min="0">
                             <%# <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Check this checkbox to continue.</div> %>
                         </div>
@@ -48,7 +50,7 @@
                             <label for="description">Description</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" placeholder="Description" class="form-control" name="description" id="description" required>
+                            <input type="text" placeholder="Description Here" class="form-control" name="description" id="description" required>
                             <%# <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Check this checkbox to continue.</div> %>
                         </div>
@@ -82,7 +84,7 @@ $(function(){
     
     // clearing the modal input after submit
     // $(".modal-body input").val("");
-    // $("#myModal").modal('hide');
+    // $("#myModal").modal("hide");
 
 });
 </script>

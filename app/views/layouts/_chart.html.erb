@@ -11,24 +11,30 @@
             <option value="column_chart">Column Chart</option>
             <option value="bar_chart">Bar Chart</option>
             <option value="pie_chart">Pie Chart</option>
+            <option value="line_chart">Line Chart</option>
         </select>
     </div>
 
     <div class="chart_list mt-2">
-        <div class="chart " id="column_chart">
-            <%= column_chart ise, xtitle: xtitle, ytitle: "Amount (Rs.)", title: "#{ise_type} Details in chart" %>
+        <div class="chart" id="column_chart">
+            <%= column_chart ise, xtitle: xtitle, ytitle: "Amount (Rs.)", title: "#{ise_type} Details in column chart" %>
         </div>
 
         <div class="chart hide" id="bar_chart">
-            <%= bar_chart ise, xtitle: "Amount (Rs.)" , ytitle: xtitle, title: "#{ise_type} Details in chart" %>
+            <%= bar_chart ise, xtitle: "Amount (Rs.)" , ytitle: xtitle, title: "#{ise_type} Details in bar chart" %>
         </div>
 
         <div class="chart hide" id="pie_chart">
-            <%= pie_chart ise, title: "#{ise_type} Details in chart" %>
+            <%= pie_chart ise, title: "#{ise_type} Details in pie chart" %>
         </div>
+
+        <div class="chart hide" id="line_chart">
+             <% line_data = cum_ise_amount ise %>
+            <%= line_chart line_data, xtitle: xtitle , ytitle:  "Amount (Rs.)", title: "#{ise_type} Details in bar chart" %>
+        </div>
+
     </div>  
 <% end %>
-
 
 
 <script type="text/javascript">

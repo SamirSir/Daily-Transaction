@@ -4,7 +4,6 @@ class SavingsController < ApplicationController
   def index 
     @savings = Saving.all.where(:user_id => current_user.id).order('id desc')
     @savings_for_graph = raw_data("SELECT SAVINGS.SAVED_ON, SAVINGS.AMOUNT FROM SAVINGS WHERE SAVINGS.USER_ID = #{current_user.id}")
-
   end
 
   def create

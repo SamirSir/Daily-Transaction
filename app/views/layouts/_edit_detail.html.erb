@@ -31,6 +31,8 @@
                                 <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.saved_on %>" required>
                             <% elsif ise.has_attribute?('spent_on') %>
                                 <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.spent_on %>" required>
+                            <% elsif ise.has_attribute?('loan_from') %>
+                                <input type="text" placeholder="Title" class="form-control" name="title" id="title" value="<%= ise.loan_from %>" required>
                             <% end %>
                             <%# <div class="valid-feedback">Valid.</div>
                             <div class="invalid-feedback">Check this checkbox to continue.</div> %>

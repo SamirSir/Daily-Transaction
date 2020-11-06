@@ -1,7 +1,7 @@
 <% if !ises.empty? %>
 
-    <% ise_type = ises[0].has_attribute?('source') ? "source" : ises[0].has_attribute?('spent_on') ? "spent_on" : "saved_on" %>
-    <% ise_title = ises[0].has_attribute?('source') ? "Income" : ises[0].has_attribute?('spent_on') ? "Expense" : "Saving" %>
+    <% ise_type = ises[0].has_attribute?('source') ? "source" : ises[0].has_attribute?('spent_on') ? "spent_on" : ises[0].has_attribute?('saved_on') ? "saved_on": "loan_from" %>
+    <% ise_title = ises[0].has_attribute?('source') ? "Income" : ises[0].has_attribute?('spent_on') ? "Expense" : ises[0].has_attribute?('saved_on') ? "Saving" : "Loan" %>
     
     <div class="font-weight-bold text-center text-light py-2" style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;"><%= ise_title %> Details</div>
 
