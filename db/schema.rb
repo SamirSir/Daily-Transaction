@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_144617) do
+ActiveRecord::Schema.define(version: 2020_11_09_070204) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "gender", null: false
+    t.integer "age", null: false
+    t.boolean "married", default: false
+    t.integer "children", default: 0
+    t.string "family_type"
+    t.decimal "family_average_income", default: "0.0"
+    t.string "bio"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -101,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_11_04_144617) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "expenses", "users"
   add_foreign_key "incomes", "users"

@@ -5,8 +5,9 @@ class Profile < ApplicationRecord
     # token = @verifier.generate("Image Input", purpose: :create_profile)
     # @verifier.verify(token, purpose: :create_profile)
     
+    belongs_to :user
 
     has_one_attached :profile_pic
     has_one_attached :cover_pic
-    belongs_to :user
+   
 end

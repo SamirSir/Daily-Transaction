@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   devise_for :users
@@ -34,6 +33,7 @@ Rails.application.routes.draw do
   # profile
   get 'profiles/:id', to: "profiles#index", as: :profiles
   post 'profiles/create'
+  post 'profiles/edit'
 
 
   

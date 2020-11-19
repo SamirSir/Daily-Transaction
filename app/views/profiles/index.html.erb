@@ -1,16 +1,61 @@
 
+
+
+
 <% if !@profile.nil? %>
+
+<style type="text/css">
+    .cover_pic_background{
+        background-color: black; 
+        background-image: url('<%= url_for(@profile.cover_pic) %>');  
+        background-size: contain, cover; 
+        background-position: center; 
+        background-repeat: no-repeat;
+    }
+</style>
+
+
+
+<%# edit modal %>
+<button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#edit_profile">
+    <span class="fa fa-edit"></span> Edit Profile
+</button>
+
+<%# Edit form %>
+<div class="modal fade" id="edit_profile" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-white">
+                <h4 class="modal-title">Edit Profile</h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <%= render "profiles/edit_profile" %>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="row text-center">
-    <div class=" col-md-6 m-auto">
-        <div style="background: lightgrey;">
-            <div style="position:relative; top: 17vh;">
+    <div class=" col-md-6 m-auto ">
+        <%# background image here %>
+        <div class="cover_pic_background">
+            <div style="position:relative; top: 7em;">
                 <% if @profile["profile_pic"] == "" %>
-                    <%= image_tag "default_pp1.png", style: "width: 20vh; border-radius: 20vh;" %>
+                    <%= image_tag "default_pp1.png", style: "width: 10em; border-radius: 10em;" %>
                 <% else %>
-                    <%= image_tag @profile["profile_pic"], style: "width: 20vh; border-radius: 20vh;" %>
+                    <%= image_tag url_for(@profile.profile_pic), style: "max-width: 10em; max-height: 10em; border-radius: 2em;" %> 
                 <% end %>
+                
                 <h4 class="font-weight-bold"><%= @profile["name"] %></h4>
                 <div class="text-secondary"><%= @profile["bio"] %></div>
+                
             </div>
         </div>
     </div>
@@ -20,7 +65,7 @@
 
     <div class="col-md-6 m-auto text-left">
         <%# email %>
-        <div class="row"  style="margin-top: 17vh;">
+        <div class="row" style="margin-top: 7em;">
             <div class="col-md-12 my-1">
                 <div class="row m-auto">
                     <div class="col-2 text-center">
@@ -65,7 +110,7 @@
             </div>  
 
             <%# relationship status %>
-            <% marriage_status = @profile["married"]== 0 ? "Unmarried" : "Married" %>
+            <% marriage_status = @profile["married"]== false ? "Unmarried" : "Married" %>
 
             <div class="col-md-12 my-1">
                 <div class="row m-auto">
@@ -81,6 +126,7 @@
 
             <%# children %>
             <% if marriage_status == "Married"%>
+            
             <div class="col-md-12 my-1">
                 <div class="row m-auto">
                     <div class="col-2 text-center">
@@ -92,7 +138,6 @@
                     </div>
                 </div>
             </div>
-            <% end %>
 
             <%# family Type %>
             <div class="col-md-12 my-1">
@@ -119,6 +164,9 @@
                     </div>
                 </div>
             </div>
+
+            <% end %>
+            
         </div>
     </div>
 
@@ -148,158 +196,8 @@
                 <%# create profile %>
                 <div class="modal-body">
 
-                    <form accept-charset="UTF-8" action='/profiles/create' method="post" autocomplete="off" class="was-validated">
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col-3">
-                                <label for="person_name">Name</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="text" placeholder="Name" class="form-control" name="person_name" id="person_name" required>
-                            </div>
-                        </div>
-                    </div>  
-
-                     <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col-3">
-                                <label>Gender</label>
-                            </div>
-                            <div class="col-9"> 
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="radio" class="form-input" name="gender" id="male" value="male" checked>
-                                        <label for="male">Male</label>
-                                    </div>
-                                    <div class="col">    
-                                        <input type="radio" class="form-input" name="gender" id="female" value="female">
-                                        <label for="female">Female</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col-3">
-                                <label for="age">Age</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="number" placeholder=". . Years" class="form-control" name="age" id="age" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col-3">
-                                <label>Marital Status</label>
-                            </div>
-                            <div class="col-9"> 
-                                <div class="row">
-                                    <div class="col">
-                                        <input type="radio" class="form-input" name="married" id="single" value="false" checked>
-                                        <label for="single">Single</label>
-                                    </div>
-                                    <div class="col">    
-                                        <input type="radio" class="form-input" name="married" id="married" value="true">
-                                        <label for="married">Married</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="form-group hide">
-                        <div class="row m-auto">
-
-                            <div class="col-3">
-                                <label for="children">Children</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="number" placeholder="Number of Children" value="0" class="form-control" name="children" id="children" required>
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="form-group hide">
-                        <div class="row m-auto">
-
-                            <div class="col-3">
-                                <label for="family_type">Family Type</label>
-                            </div>
-                            <div class="col-9">
-                                <select class="form-control" name="family_type" id="family_type">
-                                    <option value="single" selected>Single</option>
-                                    <option value="nuclear">Nuclear Family</option>
-                                    <option value="childless">Childless Family</option>
-                                    <option value="single_parent">Single Parent Family</option>
-                                    <option value="joint">Joint/Extended Family</option>
-                                    <option value="grand_parent">Grand Parent Family</option>
-                                    <option value="step">Step Family</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>  
-                    
-                    <div class="form-group hide">
-                        <div class="row m-auto">
-
-                            <div class="col-3">
-                                <label for="family_income">Family Income</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="number" step="any" placeholder="Family Average Income" value="0" class="form-control" name="family_income" id="family_income" required>
-                            </div>
-                        </div>
-                    </div>  
-                    
-                    <div class="form-group">
-                        <div class="row m-auto">
-
-                            <div class="col-3">
-                                <label for="profile_pic">Profile Picture</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="file" name="profile_pic" id="profile_pic">
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-
-                            <div class="col-3">
-                                <label for="cover_pic">Cover Picture</label>
-                            </div>
-                            <div class="col-9">
-                                <input type="file" name="cover_pic" id="cover_pic">
-                            </div>
-                        </div>
-                    </div>  
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col-3">
-                                <label for="bio">Bio</label>
-                            </div>
-                            <div class="col-9">
-                                <textarea type="text" placeholder="Bio Here (You can skip)" class="form-control" name="bio" id="bio"></textarea>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="row m-auto">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary" id="create">Create</button>
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
+                    <%= render "profiles/create_form" %>
+                
                 </div>
 
                 <div class="modal-footer">
@@ -336,5 +234,6 @@ $(function(){
     });
 
     // next
+   
 });
 </script>

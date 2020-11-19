@@ -1,0 +1,197 @@
+<form enctype="multipart/form-data" action='/profiles/edit' accept-charset="UTF-8" method="post" autocomplete="off" class="was-validated" id="edit_profile">
+    <input type="hidden" name="profile_id" value="<%= @profile.id %>">
+    
+    <div class="form-group">
+        <div class="row m-auto">
+            <div class="col-3">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-9">
+                <input type="text" placeholder="Name" class="form-control" name="name" id="name" value="<%= @profile.name %>" required>
+            </div>
+        </div>
+    </div>  
+
+        <div class="form-group">
+        <div class="row m-auto">
+            <div class="col-3">
+                <label>Gender</label>
+            </div>
+            <div class="col-9"> 
+                <div class="row">
+                    <% if @profile.gender == "male" %>
+                        <div class="col">
+                            <input type="radio" class="form-input" name="gender" id="male" value="male" checked>
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="col">    
+                            <input type="radio" class="form-input" name="gender" id="female" value="female">
+                            <label for="female">Female</label>
+                        </div>
+                    <% else %>
+                            <div class="col">
+                            <input type="radio" class="form-input" name="gender" id="male" value="male">
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="col">    
+                            <input type="radio" class="form-input" name="gender" id="female" value="female" checked>
+                            <label for="female">Female</label>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group">
+        <div class="row m-auto">
+            <div class="col-3">
+                <label for="age">Age</label>
+            </div>
+            <div class="col-9">
+                <input type="number" placeholder=". . Years" class="form-control" name="age" id="age" value="<%= @profile.age %>" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row m-auto">
+            <div class="col-3">
+                <label>Marital Status</label>
+            </div>
+            <div class="col-9"> 
+                <div class="row">
+                
+                    <% if !@profile.married %>
+                        <div class="col">
+                            <input type="radio" class="form-input" name="married" id="single" value="false" checked> 
+                            <label for="single">Single</label>
+                        </div>
+                        <div class="col">    
+                            <input type="radio" class="form-input" name="married" id="married" value="true">
+                            <label for="married">Married</label>
+                        </div>
+                    <% else %>
+                        <div class="col">
+                            <input type="radio" class="form-input" name="married" id="single" value="false">
+                            <label for="single">Single</label>
+                        </div>
+                        <div class="col">    
+                            <input type="radio" class="form-input" name="married" id="married" value="true" checked>
+                            <label for="married">Married</label>
+                        </div>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group hide">
+        <div class="row m-auto">
+
+            <div class="col-3">
+                <label for="children">Children</label>
+            </div>
+            <div class="col-9">
+                <input type="number" placeholder="Number of Children" class="form-control" name="children" id="children" value="<%= @profile.children %>" required>
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group hide">
+        <div class="row m-auto">
+
+            <div class="col-3">
+                <label for="family_type">Family Type</label>
+            </div>
+            <div class="col-9">
+                <select class="form-control" name="family_type" id="family_type" value="<%= @profile.family_type %>">
+                    <option value="single">Single</option>
+                    <option value="nuclear">Nuclear Family</option>
+                    <option value="childless">Childless Family</option>
+                    <option value="single_parent">Single Parent Family</option>
+                    <option value="joint">Joint/Extended Family</option>
+                    <option value="grand_parent">Grand Parent Family</option>
+                    <option value="step">Step Family</option>
+                </select>
+            </div>
+        </div>
+    </div>  
+    
+    <div class="form-group hide">
+        <div class="row m-auto">
+
+            <div class="col-3">
+                <label for="family_average_income">Family Income</label>
+            </div>
+            <div class="col-9">
+                <input type="number" step="any" placeholder="Family Average Income" class="form-control" name="family_average_income" id="family_average_income" value="<%= @profile.family_average_income %>" required>
+            </div>
+        </div>
+    </div>  
+    
+    <div class="form-group">
+        <div class="row m-auto">
+
+            <div class="col-3">
+                <label for="profile_pic">Profile Picture</label>
+            </div>
+            <div class="col-9">
+                <input type="file" name="profile_pic" id="profile_pic" >
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group">
+        <div class="row m-auto">
+
+            <div class="col-3">
+                <label for="cover_pic">Cover Picture</label>
+            </div>
+            <div class="col-9">
+                <input type="file" name="cover_pic" id="cover_pic" >
+            </div>
+        </div>
+    </div>  
+
+    <div class="form-group">
+        <div class="row m-auto">
+            <div class="col-3">
+                <label for="bio">Bio</label>
+            </div>
+            <div class="col-9">
+                <textarea type="text" placeholder="Bio Here (You can skip)" class="form-control" name="bio" id="bio" ><%= @profile.bio %></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="row m-auto">
+            <div class="col">
+                <button type="submit" class="btn btn-warning" id="edit_btn">Edit</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<script type="text/javascript">
+$(function(){
+
+    // setting up with previous values 
+
+    // previous married status
+
+    // boolean conversion
+    console.log($("form#edit_profile").find("input[name=married]:checked"));
+    var married = JSON.parse($("form#edit_profile").find("input[name=married]:checked").val());
+    console.log(married);
+    if (married){
+        $("form#edit_profile").find(".hide").toggle("hide");
+    }
+    // selected family type 
+    $("form#edit_profile").find("select option[value='<%= @profile.family_type %>']").attr("selected","selected");
+
+});
+</script>
