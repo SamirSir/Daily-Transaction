@@ -2,6 +2,16 @@
 <%# chart %>
 
 <div class="row m-auto text-center">
+  <%# ISEL Details %>
+  <div class="col-sm-3 mt-2">
+    <h4 class="font-weight-bold">ISE aggregate result</h4>
+    <div class="text-white font-weight-bold">
+      <p class="bg-primary p-2">Total Incomes: <%= @total_incomes %> </p>
+      <p class="bg-success p-2">Total Savings: <%= @total_savings %> </p>
+      <p class="bg-warning p-2">Total Expenses: <%= @total_expenses %> </p>
+      <p class="bg-danger p-2">Total Loans: <%= @total_loans %> </p>
+    </div>
+  </div>
 
   <%# chart %>
   <div class="col-sm-6 mt-2">
@@ -33,20 +43,31 @@
       </div>
 
     </div>
+
   </div>  
 
   <%# Suggestions %>
-  <div class="col-sm-6 mt-2">
-  
-    <div class="float-right text-white">
-    <p class="bg-success p-2">asbjkasas das</p>
-    <p class="bg-success p-2">asbjkasas das</p>
-    <p class="bg-success p-2">asbjkasas das</p>
-    <p class="bg-success p-2">asbjkasas das</p>
+  <div class="col-sm-3 mt-2">
+    <h4 class="font-weight-bold">Suggestions</h4>
+    
+    <div class="text-white font-weight-bold">
+      <% @suggestions.each do |suggest| %>
+        <p class="bg-primary p-2"><%= suggest %> </p>
+      <% end %>     
+    </div>
+
+    <%# pagination decoration %>
+    <div class="digg_pagination">
+      <div class="page_info">
+        <%= page_entries_info @suggestions %>
+      </div>
+      <%= will_paginate @suggestions, :container => false %>
     </div>
 
   </div>
+
 </div>
+
 
 
 <script type="text/javascript">

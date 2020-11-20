@@ -10,6 +10,8 @@ gem 'rails_admin'
 gem 'chartkick'
 gem 'groupdate'
 gem 'active_median'
+
+gem 'will_paginate'
 # end custom gem
 
 
