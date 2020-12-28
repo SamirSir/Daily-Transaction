@@ -39,7 +39,7 @@ class ReportsController < ApplicationController
 
      
     # suggestion data in paginataion
-    @suggestions = ["I am a super Hero", "I am not a super Hero", "I am a super Hero 1", "I am not a super Hero 1", "I am a super Hero 2", "I am not a super Hero 2"]
+    @suggestions = ["I am a super Hero", "I am not a super Hero 1", "I am a super Hero 2", "I am not a super Hero 4", "I am a super Hero 5", "I am not a super Hero 6"]
     @suggestions = @suggestions.paginate(page: params[:page], per_page: 1)
     
   end
