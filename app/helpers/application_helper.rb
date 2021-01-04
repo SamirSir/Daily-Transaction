@@ -29,4 +29,19 @@ module ApplicationHelper
         return ise_line_data
     end
 
+    def lise_color(ise_type)
+        ise_type == "Income" ? "lightblue" : ise_type == "Saving" ? "lightgreen" : ise_type == "Expense" ? "rgb(245, 204, 202)" : "#e6d3f0" 
+    end
+
+    # group id finder
+    def group_of(lise)
+        lise.last.group_id
+    end
+
+    # get first letter of each word in a sentence
+
+    def get_each_first_letter(string)
+        string.split.map(&:first).join
+    end
+
 end

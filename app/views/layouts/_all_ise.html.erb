@@ -1,34 +1,74 @@
-<% if !ises.empty? %>
+<%# 
+ises: @loans, 
+edit_action: "/groups/#{@group.id}/loans/edit" 
+%>
 
+<% if !ises.empty? %>
+    
     <% ise_type = ises[0].has_attribute?('source') ? "source" : ises[0].has_attribute?('spent_on') ? "spent_on" : ises[0].has_attribute?('saved_on') ? "saved_on": "loan_from" %>
     <% ise_title = ises[0].has_attribute?('source') ? "Income" : ises[0].has_attribute?('spent_on') ? "Expense" : ises[0].has_attribute?('saved_on') ? "Saving" : "Loan" %>
     
-    <div class="font-weight-bold text-center text-light py-2" style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;"><%= ise_title %> Details</div>
+    <div class="font-weight-bold text-center text-light py-2" style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;"> <%= @group.name %> <%= ise_title %> Details</div>
 
-    <% ises.each do |ise| %>
-        
-        <div class="row my-2" style="background: lightgrey; border-radius: 7px;">
-            <div class="col-sm-8 my-2">
-                <span><strong><%= ise_type.capitalize %>:</strong> <%= ise[ise_type].truncate(15) %></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                <span><strong>Description:</strong> <%= ise.description.truncate(15) %></span>
-                <div><strong>Amount:</strong> <%= ise.amount %></div>
-            </div>
+    <%# datatable %>
+    <div class="mt-4 p-2 shadow">
+        <table id="dataTable" class="table table-striped">
+            <thead>                        
+                <th><%= ise_type.capitalize %></th>
+                <th>Amount</th>
+                <th>Description</th>
+                <% if group_of(ises) != 0 %>
+                <th>Member</th>
+                <% end %>
+                <th></th>
+                <th>Action</th>    
+                <th></th>              
+            </thead>
 
-            <div class="col-sm-4 my-2">
-                <button class="btn btn-primary btn-sm m-1" data-toggle="modal" data-target="#viewDetail<%= ise.id %>">View</button>
-                <button class="btn btn-warning btn-sm m-1" data-toggle="modal" data-target="#editDetail<%= ise.id %>">Edit</button>
-                <button class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteDetail<%= ise.id %>">Delete</button>
+            <tbody>
+                <% ises.each do |ise| %>
+                    <tr>
+                        <td><%= ise[ise_type].truncate(15) %></td>
+                        <td><%= ise.amount %></td>
+                        <td><%= ise.description.truncate(15) %></td>
+                        <% if group_of(ises) !=0 %>
+                        <td><%= User.find(ise.user_id).email %></td>
+                        <% end %>
+                        <td>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<%= ise.id %>">View</button>
+                            <%= render 'layouts/view_detail', ise: ise, ise_type: ise_title %>
+                        </td>
+                        <td>
+                            <% if ise.user_id  == current_user.id %>
+                                <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editDetail<%= ise.id %>">Edit</button>
+                                <%= render 'layouts/edit_detail',  ise: ise, edit_action: edit_action, heading: 'Edit '+ise_title %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <% if ise.user_id  == current_user.id %>
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteDetail<%= ise.id %>">Delete</button>
+                                <%= render 'layouts/delete_detail', ise: ise %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
 
-                <%# modal partial %>
-                <%= render 'layouts/view_detail', ise: ise, ise_type: ise_title %>
-                <%= render 'layouts/edit_detail',  ise: ise, edit_action: edit_action, heading: 'Edit '+ise_title %>
-                <%= render 'layouts/delete_detail', ise: ise %>
-            </div>
-        </div>  
-    <% end %>
-
+<%# If no LISE %>
 <% else %>
     <div class="h1 font-weight-bold text-danger text-center mt-4">
         <span style="text-shadow: 0 0 3px red;">Opps!<br> you don't have any data </span><br> 😕 
     </div>
 <% end %>
+
+
+<script type="text/javascript">
+
+// dataTable initialization
+$(document).ready(function() {
+    $('#dataTable').DataTable();
+});
+
+</script>

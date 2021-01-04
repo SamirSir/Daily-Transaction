@@ -7,7 +7,7 @@
 <%# chart %>
 <% if !ise.empty? %>
     <div class="text-center mt-2">
-        <select id="chart_type" class="btn btn-success w-75" >
+        <select id="chart_type" class="btn w-75" style="background-color: <%= lise_color(ise_type) %>;" >
             <option value="column_chart">Column Chart</option>
             <option value="bar_chart">Bar Chart</option>
             <option value="pie_chart">Pie Chart</option>
@@ -39,12 +39,9 @@
 
 <script type="text/javascript">
 
-$( document ).on('turbolinks:load', function() {
-    // $("#chart_type").trigger("reset");
-    // $("#chart_type").get(0).reset();
-    // $("#chart_type")[0].reset();
-  $("#chart_type").val("column_chart");
-});
+$(document).ready(function(){
+
+$("#chart_type").val("column_chart");
 
 $(function(){
 
@@ -55,4 +52,14 @@ $(function(){
     });
       
 }); 
+});
+
+// $( document ).on('turbolinks:load', function() {
+//   $("#chart_type").trigger("reset");
+//   $("#chart_type").get(0).reset();
+//   $("#chart_type")[0].reset();
+//   $("#chart_type").val("column_chart");
+// });
+
+
 </script>

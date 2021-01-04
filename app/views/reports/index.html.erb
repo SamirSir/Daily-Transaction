@@ -1,0 +1,103 @@
+
+<div class="row  m-auto" style="min-height: 100vh;">
+    <%= User.all.pluck("email") %>
+    <div class="col-md-5">
+        <div class="groups">
+            <input type="text" class="group_name" placeholder="Group Name Here">
+            <button class="btn btn-sm btn-primary create_group" >Create Group</button> 
+            
+            <div class="">
+                <h3>Requests</h3>
+                <% current_user.group_requests.each_with_index do |request, i| %>
+                    <div class="m-1" >
+                        <span class="font-weight-bolder"><%= i+1 %>. <%= request.name %></span>
+                        <button class="btn btn-sm btn-primary">Accept Request</button>
+                    </div>
+                <% end %>
+            </div>
+            <HR>
+            <% current_user.groups.each_with_index do |group, i| %>
+                <div class="group">
+                    <dt><%= i+1 %>. <%= group.name %> { <%= group.users.count %> Members }<dt>  
+                     <%# create membership privilidge %>
+                    <% if Membership.find_by(group_id: group.id, user_id: current_user.id).admin %>
+                        <div class="add_member_section">
+                            <input type="hidden" class="member_group_id" value="<%= group.id %>">
+                            <input type="email" class="member_email" placeholder="Email here">
+                            <button class="create_membership btn btn-sm btn-success" >Add Member</button>
+                        </div>
+                    <% end %>         
+        
+                    <dd>
+                        <p>Confirmed Members</p>
+                        <% group.members.each_with_index do |member, j| %>
+                            <p><%= j+1 %>. <%= member.email %></p>
+                        <% end %>
+                        <hr>
+                        <p>Pending Members</p>
+                        <% group.pending_members.each_with_index do |member, j| %>
+                            <p><%= j+1 %>. <%= member.email %></p>
+                        <% end %>
+                    <dd>
+                </div>
+                <hr />
+            <% end %>           
+        </div>
+        <%# render 'layouts/all_ise', ises: @savings, edit_action: 'savings/edit' %>
+    </div>
+
+    <%# info %>
+    <div class="col-md-7">
+        
+        <%# render 'layouts/chart', ise: @savings_for_graph, ise_type: "Saving", xtitle: "Saved On" %>
+    </div>  
+           
+</div>
+
+<script>
+$(document).ready(function(){
+    // Create Group
+    $(".create_group").on("click", function(){
+        var group = $(this).closest(".groups");
+        var group_name = $(group).find(".group_name").val();
+        $.ajax({
+            url: "/groups/create",
+            type: "post",
+            dataType: "json",
+            data: {group_name: group_name},
+            success: function(){
+                location.reload();
+                $(group).find(".group_name").val("");
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
+
+    // Create member
+     $(".create_membership").on("click", function(){
+        var member = $(this).closest(".add_member_section");
+        var group_id = $(member).find(".member_group_id").val();
+        var member_email = $(member).find(".member_email").val();
+
+        $.ajax({
+            url: "/memberships/create",
+            type: "post",
+            dataType: "json",
+            data: {
+                group_id: group_id,
+                member_email: member_email
+            },
+            success: function(){
+                location.reload();
+                $(member).find(".member_email").val("");
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
+
+}); 
+</script>

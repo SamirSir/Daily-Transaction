@@ -1,10 +1,10 @@
 
 
 <div class="row" style="min-height: 100vh;">
-    
+   
     <%# analysis panel %>
-    <div class="col-md-2" style="background: lightgrey;">
-        <%= render 'layouts/side_panel', name: "Income", create_action: "/incomes/create" %>
+    <div class="col-md-2">
+        <%= render 'layouts/side_panel', name: "Income", create_action: "/groups/#{@group.id}/incomes/create" %>
     </div>
 
     <%# main body %>
@@ -12,7 +12,7 @@
         <div class="row m-auto">
             <%# record %>
             <div class="col-md-8">
-                <%= render 'layouts/all_ise', ises: @incomes, edit_action: 'incomes/edit' %>
+                <%= render 'layouts/all_ise', ises: @incomes, edit_action: "/groups/#{@group.id}/incomes/edit" %>
             </div>
 
             <%# info %>
@@ -23,12 +23,13 @@
         </div>
     </div>
     
-</div>
+</div>  
 
 
 <script type="text/javascript">
 $(function(){
 
+    
     // note put scripts in  main page rather than partial
     // delete operation of ISE
     $("button.delete_id").on("click", function(){
@@ -36,10 +37,10 @@ $(function(){
         console.log(delete_ise);
 
         $.ajax({
-            url: 'incomes/delete',
+            url: '/groups/<%= @group.id %>/incomes/delete',
             type: 'delete',
             dataType: 'json',
-            data: {id: delete_ise},
+            data: {delete_id: delete_ise},
             success: function(response){
                 location.reload();
             },

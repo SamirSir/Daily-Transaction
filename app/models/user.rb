@@ -9,5 +9,15 @@ class User < ApplicationRecord
   has_many :savings, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :loans, dependent: :destroy
+
+  # group
+  has_many :memberships, dependent: :destroy
+  has_many :groups, through: :memberships, dependent: :destroy
   
+
+  # user helper
+  def group_requests
+    memberships.map{|membership| membership.group if !membership.confirmed }.compact
+  end
+
 end

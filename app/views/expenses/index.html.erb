@@ -1,9 +1,9 @@
 <div class="row" style="min-height: 100vh;">
     
     <%# analysis panel %>
-    <div class="col-md-2" style="background: lightgrey;">
+    <div class="col-md-2">
         <%# side panel partial %>
-        <%= render 'layouts/side_panel', name: "Expense", create_action: "/expenses/create" %>
+        <%= render 'layouts/side_panel', name: "Expense", create_action: "/groups/#{@group.id}/expenses/create" %>
     </div>
 
     <%# main body %>
@@ -13,7 +13,7 @@
             <%# record %>
             <div class="col-md-8">
                 <%# all record through partial %>
-                <%= render 'layouts/all_ise', ises: @expenses, edit_action: 'expenses/edit' %>
+                <%= render 'layouts/all_ise', ises: @expenses, edit_action: "/groups/#{@group.id}/expenses/edit" %>
             </div>
 
             <%# info %>
@@ -37,10 +37,10 @@ $(function(){
         var delete_ise = $(this).attr('data-id');
 
         $.ajax({
-            url: 'expenses/delete',
+            url: "/groups/<%= @group.id %>/expenses/delete",
             type: 'delete',
             dataType: 'json',
-            data: {id: delete_ise},
+            data: {delete_id: delete_ise},
             success: function(response){
                 location.reload();
             },

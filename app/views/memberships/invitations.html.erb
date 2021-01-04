@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <div class="invitation shadow rounded">
+
+            <%# request heading %>
+            <div class="invitation-heading rounded-top text-light bg-primary text-center p-3 ">
+                <div class="switch">Invitations receive/sent</div>
+                <div class="far fa-3x my-2 fa-envelope-open"></div> 
+                <div class="invitation-title">Invitations</div>
+            </div>
+
+            <%#  requests  %>
+            <div class="invitation-list p-2">
+            <% if current_user.group_requests.count == 0 %>
+                <div class="no-invitation text-center">
+                    <div class="h3 text-secondary my-5">No Group Requests</div>
+                </div>
+
+            <% else %>
+                <% current_user.group_requests.each do |request| %>
+                    <div class="invitation-group row my-3">
+                        <div class="col-6 text-right">
+                            <input type="hidden" class="group_id" value="<%= request.id %>">
+                            <span class="invitation-from"><%= request.name %> </span>
+                        </div>
+                        <div class="col-6 text-center">
+                            <button class="accept shadow btn btn-primary mr-2 btn-sm accept">Accept</button>
+                            <button class="reject shadow btn btn-sm decline">Decline</button>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // accept invitation
+    $(".accept").on("click", function(){
+
+        var invitation_group = $(this).closest(".invitation-group");
+        var group_id = $(invitation_group).find(".group_id").val();
+        console.log(group_id);
+        
+        $.ajax({
+            url: '/memberships/accept_membership',
+            type: 'post',
+            dataType: 'json',
+            data: {group_id: group_id},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+    });
+
+    // reject invitation
+    $(".reject").on("click", function(){
+
+        var invitation_group = $(this).closest(".invitation-group");
+        var group_id = $(invitation_group).find(".group_id").val();
+        console.log(group_id);
+        
+        $.ajax({
+            url: '/memberships/reject_membership',
+            type: 'delete',
+            dataType: 'json',
+            data: {group_id: group_id},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+    });
+
+});
+</script>

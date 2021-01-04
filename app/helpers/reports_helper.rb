@@ -37,6 +37,4 @@ module ReportsHelper
         return ise_line_data
     end
 
-
-
 end

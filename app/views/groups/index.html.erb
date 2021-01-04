@@ -1,0 +1,86 @@
+<div class="row mt-4">
+   
+    <%# create group %>
+    <div class="col-sm-3 text-center my-3">
+        <div class="group shadow rounded overflow-hidden p-2"> 
+            <div class="group-name">Create Group</div>  
+            <hr>
+            <input type="text" class="group_name" placeholder="Group Name Here">
+            <button class="create_group btn btn-primary my-2 shadow">New Group</button>
+        </div>
+    </div>
+
+    <div class="col-sm-9">
+        <div class="row text-center d-flex justify-content">
+
+            <%# personal %>
+
+            <div class="col-md-3 col-sm-4 group shadow p-2 mx-3 m-sm-3 rounded">
+                <div class="group-symbol m-auto">P</div>
+                <div class="group-name">Personal</div>
+                <hr>
+                <div class="d-flex justify-content-around">
+                    <div> 
+                        <span class="">Personal Information here</span>
+                    </div>
+                </div>
+                <hr>
+                <%= link_to "View Detail", group_path(0), class:"btn btn-primary my-2 shadow" %>
+            </div>
+
+            <%# groups %>
+            <% current_user.groups.each  do |group| %>
+                <% if current_user.in? group.members %>               
+                    <div class="col-md-3 col-sm-4 group shadow p-2 mx-3 m-sm-3 rounded">
+                        <div class="group-symbol m-auto">
+                            <%= get_each_first_letter group.name %>
+                        </div>
+                        <div class="group-name"><%= group.name %></div>
+                        <hr>
+                        <div class="d-flex justify-content-around">
+                            <div> 
+                                <%= group.members.count %> <span class="">Members</span>
+                            </div>
+                        
+                            <div>
+                                <%= group.pending_members.count %><span class=""> Requested</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <%= link_to "View Detail", group_path(group), class:"btn btn-primary my-2 shadow" %>
+                    </div>
+                <% end %>
+            <% end %>
+
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // create group
+    $(".create_group").on("click", function(){
+        var group = $(this).closest(".group");
+        var group_name = $(group).find(".group_name").val();
+        $.ajax({
+            url: "/groups/create",
+            type: "post",
+            dataType: "json",
+            data: {group_name: group_name},
+            success: function(){
+                console.log(group_name)
+                location.reload();
+                $(group).find(".group_name").val("");
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
+    
+
+
+});
+</script>

@@ -1,0 +1,23 @@
+// Place all the styles related to the memberships controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.invitation {
+}
+.invitation-heading {
+  background-color: #5d1ba8;
+  font-family: "Courier New", Courier, monospace;
+}
+.invitation-title {
+  font-size: 1.5em;
+}
+
+.invitation-from {
+  font-family: Courier, monospace;
+}
+
+.no-invitation {
+  font-size: 1.2em;
+  font-weight: bolder;
+  font-family: Courier, monospace;
+}

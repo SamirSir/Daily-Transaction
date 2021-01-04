@@ -14,9 +14,111 @@
  *= require_self
  */
 
+/* for side nav push */
+body {
+  /* background-color: #9dbdb1; */
+  font-family: "Lato", sans-serif;
+  transition: 0.5s;
+}
 
- .hide{
-     display: none;
- }
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: hsl(226, 74%, 51%);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
 
- 
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-style: italic;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: lightblue;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav .collapsed-group {
+  font-size: 0.7em;
+  color: lightblue !important;
+}
+
+.sidenav a:hover {
+  color: white;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 7px;
+  z-index: 1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+  .group-name {
+    font-size: 1em;
+  }
+}
+
+/* side nav push end */
+
+.hide {
+  display: none;
+}
+
+.group {
+  translate: scale 2s;
+  cursor: pointer;
+}
+.group:hover {
+  scale: 1.01;
+  /* border: lightblue 1px solid; */
+}
+.title_name {
+  font-size: 1.5em;
+  font-family: "Sofia", sans-serif;
+}
+
+.group-name {
+  color: rgb(45, 127, 233);
+  font-size: 2em;
+  font-weight: bold;
+  font-family: serif, sans-serif;
+}
+
+.group-symbol {
+  color: rgb(45, 127, 233);
+  font-size: 4em;
+  font-family: serif, sans-serif;
+}
+
+/* ise link */
+.ise-link {
+  color: grey;
+  font-weight: bolder;
+}
+
+.ise-link:active,
+.ise-link:hover {
+  color: black;
+}

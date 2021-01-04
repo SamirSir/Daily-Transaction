@@ -1,0 +1,33 @@
+<%# make sure the type is unique %>
+
+<%# reduire tag = to display heading
+    type = classify group or member list toggle, 
+    items = datas
+ %>
+ 
+<%# color for side nav  %>
+
+<div class="collapseList">
+    <a class="title font-weight-bolder mb-2 <%= type=='member'? 'text-secondary': '' %>" href="#<%= listId %>" data-toggle="collapse">
+        <span class="titleIcon fa fas fa-caret-right"></span>&nbsp;&nbsp; <%= tag %>
+    </a>
+    <div id="<%= listId %>" class="collapse ml-3"> 
+        <% if type == "member" %>     
+            <% items.each_with_index do |item, i| %>
+                <p class="">
+                    <span class="font-weight-bolder"><%= i+1 %>. <%= username(item.email) %></span>
+                </p>
+            <% end %>
+        <% elsif type == "group" %>
+            <div class="collapsed-group">
+                <a href="/groups/0">Personal</a>
+            </div>
+
+            <% items.each do |item| %>
+                <div class="collapsed-group">   
+                    <a href="/groups/<%= item.id %>"><%= item.name %></a>
+                </div>
+            <% end %>
+        <% end %>
+    </div>
+</div>

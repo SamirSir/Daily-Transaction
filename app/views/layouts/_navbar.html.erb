@@ -1,5 +1,9 @@
 <nav class="nav nav-fill nav-tabs flex-column flex-sm-row font-weight-bolder bg-dark" >
     <% if user_signed_in? %>
+        <div class="nav-link text-light">
+            <span class="fa far fa-bars"></span>
+        </div>
+
         <%= link_to "Home", root_path, class: "nav-item nav-link text-light " %>
         <%= link_to "Income", incomes_path, class: "nav-item nav-link  text-light " %>
         <%= link_to "Saving", savings_path, class: "nav-item nav-link  text-light " %>
@@ -7,7 +11,7 @@
         <%= link_to "Loans", loans_path, class: "nav-item nav-link  text-light " %>
 
         <div class="nav-item dropdown">
-            <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><%=  user_signed_in? ? username(current_user.email) : "Login" %></a>
+            <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false"><%= username(current_user.email) %></a>
             <div class="dropdown-menu">
                 
                 <% if current_user.admin %>

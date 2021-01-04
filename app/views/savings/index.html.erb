@@ -1,10 +1,8 @@
 <div class="row" style="min-height: 100vh;">
 
-
-    
     <%# analysis panel %>
-    <div class="col-md-2" style="background: lightgrey;">
-        <%= render 'layouts/side_panel', name: "Saving", create_action: "/savings/create" %>
+    <div class="col-md-2">
+        <%= render 'layouts/side_panel', name: "Saving", create_action: "/groups/#{@group.id}/savings/create" %>
     </div>
 
     <%# main body %>
@@ -12,7 +10,7 @@
         <div class="row m-auto">
             <%# record %>
             <div class="col-md-8">
-                <%= render 'layouts/all_ise', ises: @savings, edit_action: 'savings/edit' %>
+                <%= render 'layouts/all_ise', ises: @savings, edit_action: "/groups/#{@group.id}/savings/edit" %>
             </div>
 
             <%# info %>
@@ -25,7 +23,6 @@
     
 </div>
 
-
 <script type="text/javascript">
 $(function(){
 
@@ -36,10 +33,10 @@ $(function(){
         console.log(delete_ise);
 
         $.ajax({
-            url: 'savings/delete',
+            url: '/groups/<%= @group.id %>/savings/delete',
             type: 'delete',
             dataType: 'json',
-            data: {id: delete_ise},
+            data: {delete_id: delete_ise},
             success: function(response){
                 location.reload();
             },

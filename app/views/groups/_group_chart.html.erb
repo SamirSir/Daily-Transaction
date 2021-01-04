@@ -1,0 +1,83 @@
+<%# Aggregate result %>
+<div class="row m-auto text-center ">
+
+    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow incomes">
+        <span class="amount"><%= @total_incomes %></span>
+        <span class="amount-type">Total Incomes</span>
+    </div>
+
+    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow savings">
+        <span class="amount"><%= @total_savings %></span>
+        <span class="amount-type">Total Savings</span>
+    </div>
+
+    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow expenses">
+        <span class="amount"><%= @total_expenses %></span>
+        <span class="amount-type">Total Expenses</span>
+    </div>
+
+    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow loans">
+        <span class="amount"><%= @total_loans %></span>
+        <span class="amount-type">Total Loans</span>
+    </div>
+
+</div>
+
+<%# chart %>
+<div class="row mt-5 text-center">
+
+  <%# chart %>
+  <div class="col-11 m-auto">
+
+    <select id="chart_type" class="btn w-50" style="background-color: lightgreen;" >
+      <option value="line_chart">Line Chart</option>
+      <option value="column_chart">Column Chart</option>
+      <option value="bar_chart">Bar Chart</option>
+      <option value="pie_chart">Pie Chart</option>
+    </select>
+
+    <div class="chart_list mt-2">
+
+      <%# multiple line is needed %>
+      <div class="chart" id="line_chart">
+          <%= line_chart @ise_amount_list, title: "Aggregate Details in Line chart", xtitle: "Progress", ytitle: "Amount (Rs.)" %>
+      </div>
+
+      <div class="chart hide" id="column_chart">
+          <%= column_chart @total_data, title: " Aggregate Details in Column chart", xtitle: "Monitory Types", ytitle: "Amount (Rs.)" %>
+      </div>
+
+      <div class="chart hide" id="bar_chart">
+          <%= bar_chart @total_data ,title: "Aggregate Details in Bar chart", xtitle: "Amount (Rs.)", ytitle: "Monitory Types" %>
+      </div>
+
+      <div class="chart hide" id="pie_chart">
+          <%= pie_chart @total_data ,title: "Aggregate Details in Pie chart" %>
+      </div>
+
+    </div>
+
+  </div>  
+
+</div>
+
+
+<script type="text/javascript">
+
+$( document ).on('turbolinks:load', function() {
+    // $("#chart_type").trigger("reset");
+    // $("#chart_type").get(0).reset();
+    // $("#chart_type")[0].reset();
+    $("#chart_type").val("line_chart");
+});
+
+$(function(){
+
+    $("#chart_type").on("change", function(){
+        var chart_type = $(this).val();
+        $('div.chart').hide();
+        $("#"+chart_type).show(900);
+    });
+      
+}); 
+</script>

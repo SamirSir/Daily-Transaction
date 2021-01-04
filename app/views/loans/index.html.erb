@@ -3,8 +3,8 @@
 <div class="row" style="min-height: 100vh;">
     
     <%# analysis panel %>
-    <div class="col-md-2" style="background: lightgrey;">
-        <%= render 'layouts/side_panel', name: "Loan", create_action: "/loans/create" %>
+    <div class="col-md-2">
+        <%= render 'layouts/side_panel', name: "Loan", create_action: "/groups/#{@group.id}/loans/create" %>
     </div>
 
     <%# main body %>
@@ -12,7 +12,7 @@
         <div class="row m-auto">
             <%# record %>
             <div class="col-md-8">
-                <%= render 'layouts/all_ise', ises: @loans, edit_action: 'loans/edit' %>
+                <%= render 'layouts/all_ise', ises: @loans, edit_action: "/groups/#{@group.id}/loans/edit" %>
             </div>
 
             <%# info %>
@@ -36,10 +36,10 @@ $(function(){
         console.log(delete_ise);
 
         $.ajax({
-            url: 'loans/delete',
+            url: '/groups/<%= @group.id %>/loans/delete',
             type: 'delete',
             dataType: 'json',
-            data: {id: delete_ise},
+            data: {delete_id: delete_ise},
             success: function(response){
                 location.reload();
             },

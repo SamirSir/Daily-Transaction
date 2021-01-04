@@ -1,0 +1,110 @@
+
+<div class="row main" style="min-height: 100vh;">
+    
+    <%# ISE link %>
+    <div class="col-md-2 mt-4">
+        <%= render "groups/side_nav", group: @group %>
+    </div>
+
+    <%# Chart body %>
+    <div class="col-md-7">
+        <%= render "groups/group_chart" %>
+    </div>
+
+    <%# ISE link %> 
+    <div class="col-md-3">
+        <div class="group-name text-center">
+            <%= @group.name %>
+        </div>
+        <hr>
+
+        <%# Create Membership Section %>
+
+        <%# to hide members in personal group %>
+        <% if @group.id != 0 %>
+            <div class="row text-center ">               
+                <% if @group.id != 0 %>
+                    <% if Membership.find_by(group_id: @group.id, user_id: current_user.id).admin || @group.id == 0 %>
+                        <div class="col add_member_section">
+                            <input type="hidden" class="member_group_id" value="<%= @group.id %>">
+                            <input type="email" class="member_email" placeholder="Recipient Email Here">
+                            <button class="create_membership btn btn-primary shadow my-2" >Add Member</button>
+                        </div>
+                    <% end %>
+                <% end %>   
+            </div>
+            <hr>
+            <%# Admin %>
+            <%= render "layouts/collapse_expand", {type:"member", tag: "Admins", listId: "adminList", items: @group.group_admin} %>
+            
+            <%# members %>
+            <%= render "layouts/collapse_expand", {type:"member", tag: "Members", listId: "membersList", items: @group.members} %>
+           
+            <%# pending Members %>
+            <%= render "layouts/collapse_expand", {type:"member", tag: "Pending Members", listId: "pendingMembersList", items: @group.pending_members} %>
+           
+        <%# member hidden section end   %>
+        <% end %>
+
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+$(function(){
+
+    // collapse expand partial
+     $(".title").on("click", function(){
+        var collapseList = $(this).closest(".collapseList");
+        var changeIcon = $(collapseList).find(".titleIcon");
+        $(changeIcon).toggle("fa-caret-right");
+    }); 
+
+    // note put scripts in  main page rather than partial
+    // delete operation of ISE
+    $("button.delete_id").on("click", function(){
+        var delete_ise = $(this).attr('data-id');
+
+        $.ajax({
+            url: 'expenses/delete',
+            type: 'delete',
+            dataType: 'json',
+            data: {id: delete_ise},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+    });
+      
+
+    //   create membership
+     $(".create_membership").on("click", function(){
+        var member = $(this).closest(".add_member_section");
+        var group_id = $(member).find(".member_group_id").val();
+        var member_email = $(member).find(".member_email").val();
+
+        $.ajax({
+            url: "/memberships/create",
+            type: "post",
+            dataType: "json",
+            data: {
+                group_id: group_id,
+                member_email: member_email
+            },
+            success: function(){
+                location.reload();
+                $(member).find(".member_email").val("");
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    });
+
+}); 
+</script>

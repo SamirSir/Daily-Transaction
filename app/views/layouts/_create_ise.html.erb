@@ -15,7 +15,7 @@
             <!-- Modal body -->
             <div class="modal-body text-left font-weight-bold">
                 <form accept-charset="UTF-8" action= "<%= create_action %>" method="post" autocomplete="off" class="was-validated">
-                <% title = create_action.split('/')[1] == 'incomes' ? "Source" : create_action.split('/')[1] == 'savings' ? "Saved On" : create_action.split('/')[1] == 'expenses' ? "Spent On" : "Loan From" %>
+                <% title = create_action.split('/')[3] == 'incomes' ? "Source" : create_action.split('/')[3] == 'savings' ? "Saved On" : create_action.split('/')[3] == 'expenses' ? "Spent On" : "Loan From" %>
 
                 <div class="form-group">
                     <div class="row m-auto">

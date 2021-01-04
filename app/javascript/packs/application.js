@@ -13,6 +13,13 @@ require("channels")
 
 require("jquery")
 
+// DataTables
+require('datatables.net-bs4')
+
+// Importing jQuery and require DataTables in appplication.js 
+import $ from 'jquery';
+global.$ = jQuery;
+
 // chart.js
 require("chartkick")
 require("chart.js")
@@ -29,4 +36,5 @@ import 'bootstrap';
 import './src/application.scss';
 
 
+    
 

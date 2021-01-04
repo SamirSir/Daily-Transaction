@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_070204) do
+ActiveRecord::Schema.define(version: 2020_12_29_035056) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
@@ -55,7 +55,15 @@ ActiveRecord::Schema.define(version: 2020_11_09_070204) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "group_id", default: 0, null: false
+    t.index ["group_id"], name: "index_expenses_on_group_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "incomes", force: :cascade do |t|
@@ -65,6 +73,8 @@ ActiveRecord::Schema.define(version: 2020_11_09_070204) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "group_id", default: 0, null: false
+    t.index ["group_id"], name: "index_incomes_on_group_id"
     t.index ["user_id"], name: "index_incomes_on_user_id"
   end
 
@@ -75,7 +85,20 @@ ActiveRecord::Schema.define(version: 2020_11_09_070204) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "group_id", default: 0, null: false
+    t.index ["group_id"], name: "index_loans_on_group_id"
     t.index ["user_id"], name: "index_loans_on_user_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "user_id", null: false
+    t.boolean "confirmed"
+    t.boolean "admin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -100,6 +123,8 @@ ActiveRecord::Schema.define(version: 2020_11_09_070204) do
     t.integer "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "group_id", default: 0, null: false
+    t.index ["group_id"], name: "index_savings_on_group_id"
     t.index ["user_id"], name: "index_savings_on_user_id"
   end
 
@@ -118,9 +143,15 @@ ActiveRecord::Schema.define(version: 2020_11_09_070204) do
 
   add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "expenses", "groups"
   add_foreign_key "expenses", "users"
+  add_foreign_key "incomes", "groups"
   add_foreign_key "incomes", "users"
+  add_foreign_key "loans", "groups"
   add_foreign_key "loans", "users"
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "savings", "groups"
   add_foreign_key "savings", "users"
 end

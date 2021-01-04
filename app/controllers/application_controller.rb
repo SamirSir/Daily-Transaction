@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
 
     def labelled_data(query)
         return ActiveRecord::Base.connection.execute(query)[0]
-
     end
 end
 
