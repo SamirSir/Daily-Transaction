@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <div class="invitation shadow rounded">
+
+            <%# request heading %>
+            <div class="invitation-heading rounded-top text-light bg-primary text-center p-3 ">
+                <div class="switch">Notifications receive/sent</div>
+                <div class="far fa-3x my-2 fa-bell"></div> 
+                <div class="invitation-title">Notifications</div>
+            </div>
+
+            <%#  requests  %>
+            <div class="invitation-list p-2">
+            <% if !@group %>
+                <div class="no-invitation text-center">
+                    <div class="h3 text-secondary my-5">No Notifications</div>
+                </div>
+
+            <% else %>
+                <p>Notification 1</p>
+                <p>Notification 1</p>
+                <p>Notification 1</p>
+                <p>Notification 1</p>
+            <% end %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // accept invitation
+    $(".accept").on("click", function(){
+
+        var invitation_group = $(this).closest(".invitation-group");
+        var group_id = $(invitation_group).find(".group_id").val();
+        console.log(group_id);
+        
+        $.ajax({
+            url: '/memberships/accept_membership',
+            type: 'post',
+            dataType: 'json',
+            data: {group_id: group_id},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+    });
+
+    // reject invitation
+    $(".reject").on("click", function(){
+
+        var invitation_group = $(this).closest(".invitation-group");
+        var group_id = $(invitation_group).find(".group_id").val();
+        console.log(group_id);
+        
+        $.ajax({
+            url: '/memberships/reject_membership',
+            type: 'delete',
+            dataType: 'json',
+            data: {group_id: group_id},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+
+    });
+
+});
+</script>

@@ -5,6 +5,11 @@
     <a href="<%= root_path %>">Home</a>
     <%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
     <a href="<%= invitations_path %>">Invitations </a>
+    
+    <% if @group %>
+    <a href="<%= notifications_path(@group) %>">Notifications</a>
+    <% end %>
+    
     <a href="#">Settings</a>
 </div>
 <% end %>
@@ -13,7 +18,7 @@
    
     <div class="ml-3">
          <% if user_signed_in? %>
-            <span style="font-size: 1.5em; cursor:pointer;" onclick="openNav()">&#9776;</span>
+            <span id="openSideNav" style="font-size: 1.5em; cursor:pointer;" onclick="openNav()">&#9776;</span>
         <% end %>
     </div>
     
@@ -33,6 +38,7 @@
 </div>
 
 <script>
+
     // sidebar
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
@@ -46,18 +52,42 @@
         document.body.style.backgroundColor = "white";
     }
 
+    // var insideCount = 0;
+    // $("#openSideNav").on("click", function(){
+    //     insideCount += 1;      
+    //     console.log("Inside Click", insideCount);
+    // }); 
+
+    // if (insideCount >= 1){
+    //     window.addEventListener("click", function(event){
+    //         if(document.getElementById("mySidenav").contains(event.target) == false){
+    //             closeNav();
+    //             insideCount = 0;
+    //         } 
+    //     });
+    // }
+
+    // window.addEventListener('click', function(e){   
+    //   if (document.getElementById('clickbox').contains(e.target)){
+    //     // Clicked in box
+    //   } else{
+    //     // Clicked outside the box
+    //   }
+    // });
+
     // steaky navbar
-    window.onscroll = function() {myFunction()};
+    // window.onscroll = function() {myFunction()};
 
-    var navbar = document.getElementById("main");
-    var sticky = navbar.offsetTop;
+    // var navbar = document.getElementById("main");
+    // var sticky = navbar.offsetTop;
 
-    function myFunction() {
-    if (window.pageYOffset >= sticky) {
-        navbar.classList.add("sticky");
-    } else {
-        navbar.classList.remove("sticky");
-    }
-    }
+    // function myFunction() {
+    // if (window.pageYOffset >= sticky) {
+    //     navbar.classList.add("sticky");
+    // } else {
+    //     navbar.classList.remove("sticky");
+    // }
+    // }
+    
 </script>
 

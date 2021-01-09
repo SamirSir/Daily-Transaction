@@ -12,10 +12,13 @@ gem 'groupdate'
 gem 'active_median'
 
 gem 'will_paginate'
+
+gem 'rails-erd', group: :development
+# gem 'awesome_print', group: :development
 # end custom gem
 
 
-ruby '2.7.0'
+ruby '2.7.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.3'
