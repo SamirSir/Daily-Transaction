@@ -1,0 +1,26 @@
+input {
+width: 100%;
+}
+
+label,
+.optional {
+float: left;
+font-weight: bold;
+}
+
+.remember-me{
+width: 100% !important;
+}
+
+.optional {
+font-size: 0.9em;
+margin-top: 3px;
+}
+
+h2 {
+text-align: center;
+}
+
+.devise {
+width: 320px;
+}

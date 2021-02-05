@@ -1,32 +1,39 @@
 
+
+<link rel="stylesheet" href="../app/assests/stylesheets/devise.scss">
+
+<%# <img src="app/assets/images/background3.jpg"> %>
+
   <div class="row">
-    <div class="col-md-3 p-3 text-center m-auto border rounded ">
+    <div class=" devise p-3 m-auto border rounded shadow">
 
-      <h2>Log In</h2>
+        <h2>Log In</h2>
+        <hr>
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field ">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          </div>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-        </div>
+          <div class="field ">
+            <%= f.label :password %><br />
+            <%= f.password_field :password, autocomplete: "current-password" %>
+          </div>
 
-        <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
+          <% if devise_mapping.rememberable? %>
+            <div class="field d-flex mt-2">
+                <%= f.label :remember_me, class: "remember-me" %>
+                <%= f.check_box :remember_me, class: "float-left" %>
+            </div>
+          <% end %>
 
-        <% if devise_mapping.rememberable? %>
-          <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
+          <div class="actions">
+            <%= f.submit "Log in" , class: "btn btn-sm btn-success" %>
           </div>
         <% end %>
 
-        <div class="actions">
-          <%= f.submit "Log in" , class: "btn btn-success"%>
+        <div class="optional">
+          <%= render "devise/shared/links" %>
         </div>
-      <% end %>
-
-      <%= render "devise/shared/links" %>
     </div>
   </div>

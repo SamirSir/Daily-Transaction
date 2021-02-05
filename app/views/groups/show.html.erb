@@ -1,6 +1,6 @@
 
 <div class="row main" style="min-height: 100vh;">
-    
+
     <%# ISE link %>
     <div class="col-md-2 mt-4">
         <%= render "groups/side_nav", group: @group %>
@@ -11,18 +11,21 @@
         <%= render "groups/group_chart" %>
     </div>
 
-    <%# ISE link %> 
+    <%# ISE link %>
     <div class="col-md-3">
+
         <div class="group-name text-center">
             <%= @group.name %>
         </div>
         <hr>
 
+       <%= render 'layouts/date_filter_template' %>
+
         <%# Create Membership Section %>
 
         <%# to hide members in personal group %>
         <% if @group.id != 0 %>
-            <div class="row text-center ">               
+            <div class="row text-center ">
                 <% if @group.id != 0 %>
                     <% if Membership.find_by(group_id: @group.id, user_id: current_user.id).admin || @group.id == 0 %>
                         <div class="col add_member_section">
@@ -31,21 +34,20 @@
                             <button class="create_membership btn btn-primary shadow my-2" >Add Member</button>
                         </div>
                     <% end %>
-                <% end %>   
+                <% end %>
             </div>
             <hr>
             <%# Admin %>
             <%= render "layouts/collapse_expand", {type:"member", tag: "Admins", listId: "adminList", items: @group.group_admin} %>
-            
+
             <%# members %>
             <%= render "layouts/collapse_expand", {type:"member", tag: "Members", listId: "membersList", items: @group.members} %>
-           
+
             <%# pending Members %>
             <%= render "layouts/collapse_expand", {type:"member", tag: "Pending Members", listId: "pendingMembersList", items: @group.pending_members} %>
-           
+
         <%# member hidden section end   %>
         <% end %>
-
 
     </div>
 
@@ -59,7 +61,7 @@ $(function(){
         var collapseList = $(this).closest(".collapseList");
         var changeIcon = $(collapseList).find(".titleIcon");
         $(changeIcon).toggle("fa-caret-right");
-    }); 
+    });
 
     // note put scripts in  main page rather than partial
     // delete operation of ISE
@@ -80,7 +82,7 @@ $(function(){
         });
 
     });
-      
+
 
     //   create membership
      $(".create_membership").on("click", function(){
@@ -106,5 +108,8 @@ $(function(){
         });
     });
 
-}); 
+    // date filter partial
+
+
+});
 </script>

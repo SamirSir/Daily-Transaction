@@ -1,8 +1,10 @@
-<div class="row">
-  <div class="col-md-4 p-3 text-center m-auto border rounded">
+<link rel="stylesheet" href="../app/assests/stylesheets/devise.scss"> 
+
+<div class="row mb-3">
+  <div class=" devise p-3 m-auto border rounded shadow" style="width:400px;">
 
     <h2>Edit <%= resource_name.to_s.humanize %></h2>
-
+    <hr>
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
@@ -16,7 +18,7 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+        <%= f.label :password %><i>(leave blank if you don't want to change it)</i><br />
         <%= f.password_field :password, autocomplete: "new-password" %>
         <% if @minimum_password_length %>
           <br />
@@ -43,7 +45,9 @@
 
     <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-success"  %></p>
 
-    <%= link_to "Back", :back %>
+    <div class="optional">
+      <%= link_to "Back", :back %>
+    </div>
 
   </div>
 </div>

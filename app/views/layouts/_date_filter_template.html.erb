@@ -1,0 +1,40 @@
+<div class="date-span row border rounded py-2 shadow mb-sm-4">
+    <div class="col-6">
+        <span>Date From</span>
+        <input type="date" class="p-0 date_from" value="<%= Date.today - 1.months %>" min="<%= Date.today - 3.years %>" required/>
+    </div>
+    <div class="col-6">
+        <span>Date To</span>
+        <input type="date" class="p-0 date_to" value="<%= Date.today %>" max="<%= Date.today %>" required/>
+    </div>
+    <div class="col text-left pt-2">
+        <button class="btn btn-primary btn-sm" id="getDateWiseData" >Filter</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+// funciton in main template
+
+    $("#getDateWiseData").on("click", function(event){
+        var dateSpan = event.target.closest(".date-span");
+        var date_from = $(dateSpan).find("input.date_from").val();
+        var date_to = $(dateSpan).find("input.date_to").val();
+        $.ajax({
+            url: "/groups/<%= @group.id %>",
+            type: "get",
+            dateType: "json",
+            data: {
+                date_from: date_from,
+                date_to: date_to
+            },
+            success: function (response) {
+                location.reload();
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    });
+});
+</script>

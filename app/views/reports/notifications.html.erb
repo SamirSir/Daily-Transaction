@@ -5,7 +5,7 @@
             <%# request heading %>
             <div class="invitation-heading rounded-top text-light bg-primary text-center p-3 ">
                 <div class="switch">Notifications receive/sent</div>
-                <div class="far fa-3x my-2 fa-bell"></div> 
+                <div class="far fa-3x my-2 fa-bell"></div>
                 <div class="invitation-title">Notifications</div>
             </div>
 
@@ -18,19 +18,14 @@
 
             <% else %>
             <%# pagination data %>
-
-            <% if @notices.present? %>
                 <div class="p-3">
-
                     <% @notices.each_with_index do |report, index| %>
-
                         <% textColor = index.zero? ? 'green' : 'red' %>
                         <% backColor = index.zero? ? 'lightgreen' : 'rgb(245, 204, 202)' %>
-                        
                         <div class=" d-flex justify-content-around align-items-center rounded shadow p-1 my-4 " style="color: <%= textColor %>; background-color: <%= backColor %>">
-                            <div class="amount-type"><%= report[0] %></div>
-                            <div class="amount-type"><%= username(User.find(report[1][0]).email) %></div>
-                            <div class="amount"><%= report[1][1] %></div>
+                            <div class="amount-type"><%= report[0] %>&nbsp;:</div>
+                            <div class="amount-type"><%= username(User.find(report[1][0]).email) if !report[1].nil? %></div>
+                            <div class="amount"><%= report[1][1] if !report[1].nil? %></div>
                         </div>
                     <% end %>
                     <%# pagination details %>
@@ -38,8 +33,6 @@
                         <%= will_paginate @notices, class: "text-center p-1" %>
                     </div>
                 </div>
-            <% end %>
-
             <% end %>
 
             </div>
