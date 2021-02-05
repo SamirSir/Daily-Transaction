@@ -30,18 +30,18 @@
 
             <%# groups %>
             <% current_user.groups.each  do |group| %>
-                <% if current_user.in? group.members %>               
-                    <div class="col-md-3 col-sm-4 group shadow p-2 mx-3 m-sm-3 rounded">
+                <% if current_user.in? group.members %>
+                    <div class="col-md-3 col-sm-4 group shadow p-sm-2 mx-3 m-sm-3 rounded overflow-hidden">
                         <div class="group-symbol m-auto">
                             <%= get_each_first_letter group.name %>
                         </div>
                         <div class="group-name"><%= group.name %></div>
                         <hr>
                         <div class="d-flex justify-content-around">
-                            <div> 
+                            <div>
                                 <%= group.members.count %> <span class="">Members</span>
                             </div>
-                        
+
                             <div>
                                 <%= group.pending_members.count %><span class=""> Requested</span>
                             </div>

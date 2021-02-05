@@ -3,10 +3,14 @@ module ApplicationHelper
     def username(email)
         return email.split('@')[0]
     end
-    
+
+    def admin_of(group_id)
+        User.find(Membership.where(group_id: group_id, admin: true).pluck(:user_id))[0].id
+    end
+
     # takes the ise as title and amount pair or any that has attribute amount
     def total_ise_amount(ise)
-        total = 0 
+        total = 0
         ise.each do |obj|
             total = total + obj[1]
         end
@@ -24,7 +28,7 @@ module ApplicationHelper
             ise_tup.push(mid_title)
             ise_tup.push(mid_sum)
             ise_line_data.push(ise_tup)
-            mid_title += " + " 
+            mid_title += " + "
         end
         return ise_line_data
     end

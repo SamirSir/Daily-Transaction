@@ -13,7 +13,7 @@ edit_action: "/groups/#{@group.id}/loans/edit"
     <%# datatable %>
     <div class="mt-4 p-2 shadow">
         <table id="dataTable" class="table table-striped">
-            <thead>                        
+            <thead>
                 <th><%= ise_type.capitalize %></th>
                 <th>Amount</th>
                 <th>Description</th>
@@ -21,8 +21,8 @@ edit_action: "/groups/#{@group.id}/loans/edit"
                 <th>Member</th>
                 <% end %>
                 <th></th>
-                <th>Action</th>    
-                <th></th>              
+                <th>Action</th>
+                <th></th>
             </thead>
 
             <tbody>
@@ -39,7 +39,7 @@ edit_action: "/groups/#{@group.id}/loans/edit"
                             <%= render 'layouts/view_detail', ise: ise, ise_type: ise_title %>
                         </td>
                         <td>
-                            <% if ise.user_id  == current_user.id %>
+                            <% if ise.user_id  == current_user.id && admin?(@group.id) %>
                                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editDetail<%= ise.id %>">Edit</button>
                                 <%= render 'layouts/edit_detail',  ise: ise, edit_action: edit_action, heading: 'Edit '+ise_title %>
                             <% end %>
