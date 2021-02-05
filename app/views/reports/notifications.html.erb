@@ -17,63 +17,32 @@
                 </div>
 
             <% else %>
-                <p>Notification 1</p>
-                <p>Notification 1</p>
-                <p>Notification 1</p>
-                <p>Notification 1</p>
+            <%# pagination data %>
+
+            <% if @notices.present? %>
+                <div class="p-3">
+
+                    <% @notices.each_with_index do |report, index| %>
+
+                        <% textColor = index.zero? ? 'green' : 'red' %>
+                        <% backColor = index.zero? ? 'lightgreen' : 'rgb(245, 204, 202)' %>
+                        
+                        <div class=" d-flex justify-content-around align-items-center rounded shadow p-1 my-4 " style="color: <%= textColor %>; background-color: <%= backColor %>">
+                            <div class="amount-type"><%= report[0] %></div>
+                            <div class="amount-type"><%= username(User.find(report[1][0]).email) %></div>
+                            <div class="amount"><%= report[1][1] %></div>
+                        </div>
+                    <% end %>
+                    <%# pagination details %>
+                    <div class="pagination justify-content-center">
+                        <%= will_paginate @notices, class: "text-center p-1" %>
+                    </div>
+                </div>
+            <% end %>
+
             <% end %>
 
             </div>
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-    // accept invitation
-    $(".accept").on("click", function(){
-
-        var invitation_group = $(this).closest(".invitation-group");
-        var group_id = $(invitation_group).find(".group_id").val();
-        console.log(group_id);
-        
-        $.ajax({
-            url: '/memberships/accept_membership',
-            type: 'post',
-            dataType: 'json',
-            data: {group_id: group_id},
-            success: function(response){
-                location.reload();
-            },
-            error: function(e){
-                console.log(e)
-            },
-        });
-
-    });
-
-    // reject invitation
-    $(".reject").on("click", function(){
-
-        var invitation_group = $(this).closest(".invitation-group");
-        var group_id = $(invitation_group).find(".group_id").val();
-        console.log(group_id);
-        
-        $.ajax({
-            url: '/memberships/reject_membership',
-            type: 'delete',
-            dataType: 'json',
-            data: {group_id: group_id},
-            success: function(response){
-                location.reload();
-            },
-            error: function(e){
-                console.log(e)
-            },
-        });
-
-    });
-
-});
-</script>

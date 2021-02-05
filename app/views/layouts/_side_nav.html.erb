@@ -6,7 +6,7 @@
     <%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
     <a href="<%= invitations_path %>">Invitations </a>
     
-    <% if @group %>
+    <% if @group && !@group.id.zero?%>
     <a href="<%= notifications_path(@group) %>">Notifications</a>
     <% end %>
     
@@ -29,7 +29,7 @@
     <div class="">
        <%# <%= user_signed_in? ? current_user.email : "Login" %>   
         <% if user_signed_in? %>
-            <%= link_to username(current_user.email), profiles_path(current_user.id) %> | 
+            <%= link_to username(current_user.email), profiles_path(current_user.id) %> |
             <%= link_to "Logout", destroy_user_session_path, method: :delete %>
         <% end %>
 
