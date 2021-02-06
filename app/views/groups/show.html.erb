@@ -4,6 +4,23 @@
     <%# ISE link %>
     <div class="col-md-2 mt-4">
         <%= render "groups/side_nav", group: @group %>
+
+        <div class="row m-auto">
+        <hr><hr>
+            <div class="col-12 font-weight-bolder">
+                Membership
+            </div>
+            <div class="col-12">
+                <%# Admin %>
+                <%= render "layouts/collapse_expand", {type:"member", tag: "Admins", listId: "adminList", items: @group.group_admin} %>
+
+                <%# members %>
+                <%= render "layouts/collapse_expand", {type:"member", tag: "Members", listId: "membersList", items: @group.members} %>
+
+                <%# pending Members %>
+                <%= render "layouts/collapse_expand", {type:"member", tag: "Pending Members", listId: "pendingMembersList", items: @group.pending_members} %>
+            </div>
+        </div>
     </div>
 
     <%# Chart body %>
@@ -25,27 +42,19 @@
 
         <%# to hide members in personal group %>
         <% if @group.id != 0 %>
-            <div class="row text-center ">
+            <div class="row border shadow p-sm-2 rounded">
+                <div class="col-12 text-primary font-weight-bolder">Add member</div>
+                <hr>
                 <% if @group.id != 0 %>
                     <% if Membership.find_by(group_id: @group.id, user_id: current_user.id).admin || @group.id == 0 %>
                         <div class="col add_member_section">
                             <input type="hidden" class="member_group_id" value="<%= @group.id %>">
                             <input type="email" class="member_email" placeholder="Recipient Email Here">
-                            <button class="create_membership btn btn-primary shadow my-2" >Add Member</button>
+                            <button class="create_membership btn btn-sm btn-primary shadow my-2" >Add Member</button>
                         </div>
                     <% end %>
                 <% end %>
             </div>
-            <hr>
-            <%# Admin %>
-            <%= render "layouts/collapse_expand", {type:"member", tag: "Admins", listId: "adminList", items: @group.group_admin} %>
-
-            <%# members %>
-            <%= render "layouts/collapse_expand", {type:"member", tag: "Members", listId: "membersList", items: @group.members} %>
-
-            <%# pending Members %>
-            <%= render "layouts/collapse_expand", {type:"member", tag: "Pending Members", listId: "pendingMembersList", items: @group.pending_members} %>
-
         <%# member hidden section end   %>
         <% end %>
 
@@ -108,32 +117,8 @@ $(function(){
         });
     });
 
-    // for date filter partial
-    // $("#getDateWiseData").on("click", function(event){
-    //     var dateSpan = event.target.closest(".date-span");
-    //     var date_from = $(dateSpan).find("input.date_from").val();
-    //     var date_to = $(dateSpan).find("input.date_to").val();
-    //     $.ajax({
-    //         url: "/groups/<%= @group.id %>",
-    //         type: "get",
-    //         dateType: "json",
-    //         data: {
-    //             date_from: date_from,
-    //             date_to: date_to
-    //         },
-    //         success: function (response) {
-    //             $(dateSpan).find("input.date_from").val("<%= Date.today - 1.months %>");
-    //             $(dateSpan).find("input.date_to").val("<%= Date.today %>")
-    //             // location.reload();
-    //         },
-    //         error: function(error){
-    //             console.log(error);
-    //         }
-    //     });
-    // });
-
     // get date by filtering the data
-    $("#getDateWiseData").on("click", function(event){
+    $(".getDateWiseData").on("click", function(event){
         var dateSpan = event.target.closest(".date-span");
         var date_from = $(dateSpan).find("input.date_from").val();
         var date_to = $(dateSpan).find("input.date_to").val();

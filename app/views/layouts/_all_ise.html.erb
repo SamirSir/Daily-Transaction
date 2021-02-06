@@ -39,13 +39,13 @@ edit_action: "/groups/#{@group.id}/loans/edit"
                             <%= render 'layouts/view_detail', ise: ise, ise_type: ise_title %>
                         </td>
                         <td>
-                            <% if ise.user_id  == current_user.id && admin?(@group.id) %>
+                            <% if ise.user_id  == current_user.id || admin?(@group.id, current_user.id) %>
                                 <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editDetail<%= ise.id %>">Edit</button>
                                 <%= render 'layouts/edit_detail',  ise: ise, edit_action: edit_action, heading: 'Edit '+ise_title %>
                             <% end %>
                         </td>
                         <td>
-                            <% if ise.user_id  == current_user.id %>
+                            <% if ise.user_id  == current_user.id || admin?(@group.id, current_user.id) %>
                                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteDetail<%= ise.id %>">Delete</button>
                                 <%= render 'layouts/delete_detail', ise: ise %>
                             <% end %>

@@ -4,8 +4,12 @@ module ApplicationHelper
         return email.split('@')[0]
     end
 
-    def admin_of(group_id)
-        User.find(Membership.where(group_id: group_id, admin: true).pluck(:user_id))[0].id
+    def admin?(group_id, user_id)
+        if group_id == 0
+            true
+        else
+            User.find(Membership.find_by(group_id: group_id, admin: true).user_id).id == user_id
+        end
     end
 
     # takes the ise as title and amount pair or any that has attribute amount

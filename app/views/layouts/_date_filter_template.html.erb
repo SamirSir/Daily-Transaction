@@ -1,31 +1,17 @@
 <div class="date-span row border rounded py-2 shadow mb-sm-4">
+    <div class="col-12 font-weight-bolder text-primary">
+        Filter report summary
+    </div>
     <div class="col-6">
         <span>Date From</span>
-        <input type="date" class="p-0 date_from" value="<%= Date.today - 1.months %>" min="<%= Date.today - 3.years %>" required/>
+        <input type="date" class="p-0 date_from" value="<%= Date.today - 1.months %>" min="<%= Date.today - 3.years %>" max="<%= Date.today - 1.days %>" required/>
     </div>
     <div class="col-6">
         <span>Date To</span>
         <input type="date" class="p-0 date_to" value="<%= Date.today %>" max="<%= Date.today %>" required/>
     </div>
     <div class="col text-left pt-2">
-        <button class="btn btn-primary btn-sm" id="getDateWiseData" >Filter</button>
+        <button class="btn btn-primary btn-sm getDateWiseData" >Filter</button>
     </div>
 </div>
 
-
-<%# date filter  %>
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-    // $("#getDateWiseData").on("click", function(event){
-    //     debugger
-    //     var dateSpan = event.target.closest(".date-span");
-    //     var date_from = $(dateSpan).find("input.date_from").val();
-    //     var date_to = $(dateSpan).find("input.date_to").val();
-    //     window.location.href = `/groups/${@group.id}?date_from=${date_from}&date_to=${date_to}`;
-    // });
-
-
-});
-</script>
