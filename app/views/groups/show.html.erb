@@ -1,12 +1,15 @@
 
-<div class="row main" style="min-height: 100vh;">
+<div class="container-fluid row main yield">
 
     <%# ISE link %>
     <div class="col-md-2 mt-4">
-        <%= render "groups/side_nav", group: @group %>
-
         <div class="row m-auto">
-        <hr><hr>
+            <%= render "groups/side_nav", group: @group %>
+        </div>
+
+        <% if @group.id != 0 %>
+        <div class="row m-auto">
+
             <div class="col-12 font-weight-bolder">
                 Membership
             </div>
@@ -21,6 +24,8 @@
                 <%= render "layouts/collapse_expand", {type:"member", tag: "Pending Members", listId: "pendingMembersList", items: @group.pending_members} %>
             </div>
         </div>
+        <% end %>
+
     </div>
 
     <%# Chart body %>
@@ -32,7 +37,7 @@
     <div class="col-md-3">
 
         <div class="group-name text-center">
-            <%= @group.name %>
+            <%= @group.name.titleize %>
         </div>
         <hr>
 

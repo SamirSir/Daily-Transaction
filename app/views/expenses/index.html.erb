@@ -1,30 +1,16 @@
-<div class="row" style="min-height: 100vh;">
-    
-    <%# analysis panel %>
-    <div class="col-md-2">
-        <%# side panel partial %>
-        <%= render 'layouts/side_panel', name: "Expense", create_action: "/groups/#{@group.id}/expenses/create" %>
+<div class="row container-fluid yield" >
+
+    <%# record %>
+    <div class="col-md-8">
+        <%# all record through partial %>
+        <%= render 'layouts/all_ise', ises: @expenses, edit_action: "/groups/#{@group.id}/expenses/edit" %>
     </div>
 
-    <%# main body %>
-    <div class="col-md-10" style="background:e3a5f0;"> 
-    
-        <div class="row m-auto">
-            <%# record %>
-            <div class="col-md-8">
-                <%# all record through partial %>
-                <%= render 'layouts/all_ise', ises: @expenses, edit_action: "/groups/#{@group.id}/expenses/edit" %>
-            </div>
-
-            <%# info %>
-            <div class="col-md-4">
-                <%# chart partial %>
-                <%= render 'layouts/chart', ise: @expenses_for_graph, ise_type: "Expense", xtitle: "Spent On" %>
-            </div>  
-           
-        </div>
+    <%# info %>
+    <div class="col-md-4">
+        <%# chart partial %>
+        <%= render 'layouts/chart', ise: @expenses_for_graph, ise_type: "Expense", xtitle: "Spent On" %>
     </div>
-    
 </div>
 
 
@@ -50,6 +36,6 @@ $(function(){
         });
 
     });
-      
-}); 
+
+});
 </script>

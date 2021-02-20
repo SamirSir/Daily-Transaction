@@ -3,6 +3,7 @@
 class GroupsController < ApplicationController
 include ReportsHelper
 before_action :set_group, only: %i[show personal setting]
+before_action :authenticate_user!
 require 'will_paginate/array'
 
 def index; end

@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 
-# custom gem 
+# custom gem
 
 gem 'devise'
 gem 'hirb'

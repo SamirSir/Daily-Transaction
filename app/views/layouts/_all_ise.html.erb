@@ -1,17 +1,20 @@
-<%# 
-ises: @loans, 
-edit_action: "/groups/#{@group.id}/loans/edit" 
+<%#
+ises: @loans,
+edit_action: "/groups/#{@group.id}/loans/edit"
 %>
 
 <% if !ises.empty? %>
-    
+<div class="row mt-2">
     <% ise_type = ises[0].has_attribute?('source') ? "source" : ises[0].has_attribute?('spent_on') ? "spent_on" : ises[0].has_attribute?('saved_on') ? "saved_on": "loan_from" %>
-    <% ise_title = ises[0].has_attribute?('source') ? "Income" : ises[0].has_attribute?('spent_on') ? "Expense" : ises[0].has_attribute?('saved_on') ? "Saving" : "Loan" %>
-    
-    <div class="font-weight-bold text-center text-light py-2" style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;"> <%= @group.name %> <%= ise_title %> Details</div>
+    <% ise_title = ises[0].has_attribute?('source') ? "income" : ises[0].has_attribute?('spent_on') ? "expense" : ises[0].has_attribute?('saved_on') ? "saving" : "loan" %>
+
+    <%# Title and add section %>
+    <div class="col-12">
+        <%= render 'layouts/add_isel', name: ise_title, create_action: "/groups/#{@group.id}/#{ise_title}s/create" %>
+    </div>
 
     <%# datatable %>
-    <div class="mt-4 p-2 shadow">
+    <div class="col-12 mt-4">
         <table id="dataTable" class="table table-striped">
             <thead>
                 <th><%= ise_type.capitalize %></th>
@@ -55,11 +58,11 @@ edit_action: "/groups/#{@group.id}/loans/edit"
             </tbody>
         </table>
     </div>
-
+</div>
 <%# If no LISE %>
 <% else %>
     <div class="h1 font-weight-bold text-danger text-center mt-4">
-        <span style="text-shadow: 0 0 3px red;">Opps!<br> you don't have any data </span><br> 😕 
+        <span style="text-shadow: 0 0 3px red;">Opps!<br> you don't have any data </span><br> 😕
     </div>
 <% end %>
 

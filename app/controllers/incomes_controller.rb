@@ -2,6 +2,7 @@ class IncomesController < ApplicationController
 
   skip_before_action :verify_authenticity_token, except: [:index]
   before_action :set_group
+  before_action :authenticate_user!
 
   def index
     if @group.id == 0

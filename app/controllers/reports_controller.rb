@@ -1,11 +1,12 @@
-
 class ReportsController < ApplicationController
   include ReportsHelper
   before_action :set_group, only: [:notifications]
-
+  before_action :authenticate_user!, except: [:index]
   require 'will_paginate/array'
 
-  def index; end
+  def index
+
+  end
 
   def notifications
     @best_incomer = max_of('INCOMES', @group.id)

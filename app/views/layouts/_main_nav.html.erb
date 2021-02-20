@@ -1,40 +1,39 @@
 
 <% if user_signed_in? %>
-<div id="mySidenav" class="sidenav">
+	<div id="mySidenav" class="sidenav">
 
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-    <div class="home">
-        <a href="<%= root_path %>">
-        <span class="fa fa-home"></span>&nbsp; Home</a>
-    </div>
-    
-    <div class="group">
-        <%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
-    </div>
+			<div class="home">
+					<a href="<%= home_path %>">
+					<span class="fa fa-home"></span>&nbsp; Home</a>
+			</div>
 
-    <div class="invitation">
-        <a href="<%= invitations_path %>">
-        <span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
-    </div>
+			<div class="group">
+					<%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
+			</div>
 
-    <% if @group %>
-        <div class="notification">
-            <a href="<%= notifications_path(@group) %>">
-            <span class="fa fa-bell"></span>&nbsp; Notifications</a>
-        </div>
+			<div class="invitation">
+					<a href="<%= invitations_path %>">
+					<span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
+			</div>
 
-        <div class="setting">
-            <a href="<%# setting_path(@group)%>"><span class="fa fa-cog"></span>&nbsp; Settings</a>
-        </div>
-    <% end %>
-    
-    <%# link_to 'Change Password', edit_user_registration_path %>
+			<% if @group %>
+					<div class="notification">
+							<a href="<%= notifications_path(@group) %>">
+							<span class="fa fa-bell"></span>&nbsp; Notifications</a>
+					</div>
 
-</div>
+					<div class="setting">
+							<a href="<%# setting_path(@group)%>"><span class="fa fa-cog"></span>&nbsp; Settings</a>
+					</div>
+			<% end %>
+			<%# link_to 'Change Password', edit_user_registration_path %>
+
+	</div>
 <% end %>
 
-<div id="main" class="d-flex shadow mb-4">
+<div id="main" class="d-flex shadow">
     <div class="d-flex align-items-center ml-3">
         <% if user_signed_in? %>
             <span id="openSideNav" style="font-size: 1.5em; cursor:pointer;" onclick="openNav()">&#9776;</span>
@@ -42,17 +41,22 @@
     </div>
     <div class="flex-fill d-flex justify-content-center">
         <span class="font-effect-multiple-shadow title_name">Daily Transaction
-            <%= @group ? '('+@group.name+')': "" %>
+            <%= @group ? '('+@group.name.titleize+')': "" %>
         </span>
     </div>
 
     <div class="d-flex align-items-center">
     <%# <%= user_signed_in? ? current_user.email : "Login" %>
         <% if user_signed_in? %>
+            <% if User.find(current_user.id).admin %>
+                <%= link_to "Admin Panel", rails_admin_path(current_user.id) %>&nbsp;|&nbsp;
+            <% end %>
             <%= link_to username(current_user.email), profiles_path(current_user.id) %>&nbsp;|&nbsp;
             <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+        <% else %>
+            <%= link_to "Back", root_path %>&nbsp;|&nbsp;
+            <%= link_to "Login", new_user_session_path %>
         <% end %>
-
     </div>
     <%# render 'layouts/navbar' %>
 </div>
@@ -74,20 +78,20 @@
 
     // var insideCount = 0;
     // $("#openSideNav").on("click", function(){
-    //     insideCount += 1;      
+    //     insideCount += 1;
     //     console.log("Inside Click", insideCount);
-    // }); 
+    // });
 
     // if (insideCount >= 1){
     //     window.addEventListener("click", function(event){
     //         if(document.getElementById("mySidenav").contains(event.target) == false){
     //             closeNav();
     //             insideCount = 0;
-    //         } 
+    //         }
     //     });
     // }
 
-    // window.addEventListener('click', function(e){   
+    // window.addEventListener('click', function(e){
     //   if (document.getElementById('clickbox').contains(e.target)){
     //     // Clicked in box
     //   } else{
@@ -108,6 +112,6 @@
     //     navbar.classList.remove("sticky");
     // }
     // }
-    
+
 </script>
 
