@@ -2,34 +2,33 @@
 <% if user_signed_in? %>
 	<div id="mySidenav" class="sidenav">
 
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
-			<div class="home">
-					<a href="<%= home_path %>">
-					<span class="fa fa-home"></span>&nbsp; Home</a>
+		<div class="home">
+			<a href="<%= home_path %>">
+			<span class="fa fa-home"></span>&nbsp; Home</a>
+		</div>
+
+		<div class="group">
+						<%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
+		</div>
+
+		<div class="invitation">
+						<a href="<%= invitations_path %>">
+						<span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
+		</div>
+
+		<% if @group %>
+			<div class="notification">
+				<a href="<%= notifications_path(@group) %>">
+				<span class="fa fa-bell"></span>&nbsp; Notifications</a>
 			</div>
+		<% end %>
 
-			<div class="group">
-					<%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
-			</div>
-
-			<div class="invitation">
-					<a href="<%= invitations_path %>">
-					<span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
-			</div>
-
-			<% if @group %>
-					<div class="notification">
-							<a href="<%= notifications_path(@group) %>">
-							<span class="fa fa-bell"></span>&nbsp; Notifications</a>
-					</div>
-
-					<div class="setting">
-							<a href="<%# setting_path(@group)%>"><span class="fa fa-cog"></span>&nbsp; Settings</a>
-					</div>
-			<% end %>
-			<%# link_to 'Change Password', edit_user_registration_path %>
-
+		<div class="setting">
+			<a href="<%= setting_path %>"><span class="fa fa-cog"></span>&nbsp; Settings</a>
+		</div>
+        <%# link_to 'Change Password', edit_user_registration_path %>
 	</div>
 <% end %>
 
@@ -49,13 +48,13 @@
     <%# <%= user_signed_in? ? current_user.email : "Login" %>
         <% if user_signed_in? %>
             <% if User.find(current_user.id).admin %>
-                <%= link_to "Admin Panel", rails_admin_path(current_user.id) %>&nbsp;|&nbsp;
+                <%= link_to "Admin Panel", rails_admin_path(current_user.id), class: "header-link" %>&nbsp;
             <% end %>
-            <%= link_to username(current_user.email), profiles_path(current_user.id) %>&nbsp;|&nbsp;
-            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+            <%= link_to username(current_user.email), profiles_path(current_user.id), class: "header-link" %>&nbsp;
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "header-link" %>
         <% else %>
-            <%= link_to "Back", root_path %>&nbsp;|&nbsp;
-            <%= link_to "Login", new_user_session_path %>
+            <%= link_to "Back", root_path, class: "header-link" %>&nbsp;
+            <%= link_to "Login", new_user_session_path, class: "header-link" %>
         <% end %>
     </div>
     <%# render 'layouts/navbar' %>

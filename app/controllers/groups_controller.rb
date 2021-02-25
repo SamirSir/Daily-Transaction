@@ -1,8 +1,8 @@
 # frozen literal string
 
 class GroupsController < ApplicationController
-include ReportsHelper
-before_action :set_group, only: %i[show personal setting]
+include ReportsHelper, GroupsHelper
+before_action :set_group, only: %i[show personal]
 before_action :authenticate_user!
 require 'will_paginate/array'
 
@@ -87,7 +87,9 @@ def create
     end
 end
 
-def setting; end
+def setting
+   @groups = raw_data("select groups.id, groups.name from memberships left join groups on memberships.group_id = groups.id where memberships.user_id = #{current_user.id} and memberships.confirmed")
+end
 
 private
 

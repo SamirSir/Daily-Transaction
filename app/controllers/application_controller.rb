@@ -13,11 +13,6 @@ def labelled_data(query)
     ActiveRecord::Base.connection.execute(query)[0]
 end
 
-# GROUP and AMount
-# ActiveRecord::Base.connection.exec_query("SELECT USER_ID, SUM(AMOUNT) AS TOTAL_AMOUNT FROM INCOMES WHERE GROUP_ID = 7 GROUP BY USER_ID")
-
-#  ActiveRecord::Base.connection.exec_query("SELECT USER_ID, SUM(AMOUNT) AS MAX_AMOUNT FROM INCOMES GROUP BY USER_ID ORDER BY MAX_AMOUNT DE
-# SC")[0]
 def max_of(isel, group_id)
     raw_data("SELECT USER_ID, SUM(AMOUNT) AS MAX_AMOUNT FROM #{isel} WHERE GROUP_ID = #{group_id} GROUP BY USER_ID ORDER BY MAX_AMOUNT DESC")[0]
 end

@@ -6,10 +6,10 @@ Rails.application.routes.draw do
 
   # root 'groups#index'
   root 'reports#index'
-  get 'groups', to: 'groups#index', as: :home
 
-  # report
+  get 'groups', to: 'groups#index', as: :home
   get 'groups/:id/notifications', to: 'reports#notifications', as: :notifications
+  get 'setting', to: 'groups#setting', as: :setting
 
   # group
   post '/groups/create'

@@ -11,7 +11,6 @@ module ApplicationHelper
             User.find(Membership.find_by(group_id: group_id, admin: true).user_id).id == user_id
         end
     end
-
     # takes the ise as title and amount pair or any that has attribute amount
     def total_ise_amount(ise)
         total = 0

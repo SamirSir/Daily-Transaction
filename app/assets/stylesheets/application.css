@@ -64,7 +64,7 @@ body {
 
 #main {
   transition: margin-left 0.5s;
-  padding: 7px;
+  padding: 10px;
   z-index: 1;
 }
 
