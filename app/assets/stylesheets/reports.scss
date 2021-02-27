@@ -2,6 +2,34 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+.quote-header {
+  font-weight: 600;
+  font-size: xx-large;
+}
+
+.quote-item {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color:#007bff;
+  border-radius: 6px;
+  padding: 4px;
+  height: 200px;
+  color: white;
+  margin: 10px 2px;
+  scale: 1;
+  font-family: 500;
+  font-style: oblique;
+  border: none;
+  transition: height 2s;
+
+  &:hover {
+    color: yellow;
+    height: 210px;
+    border: 1px solid blue;
+  }
+}
 
 #intro {
   width: 100%;
@@ -10,7 +38,6 @@
   background-size: cover;
   padding: 200px 0 120px 0;
 }
-
 
 #intro .intro-img {
   width: 50%;

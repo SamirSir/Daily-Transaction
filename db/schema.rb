@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_035056) do
+ActiveRecord::Schema.define(version: 2021_02_25_170800) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -90,13 +90,9 @@ ActiveRecord::Schema.define(version: 2020_12_29_035056) do
     t.string "name", null: false
     t.string "gender", null: false
     t.integer "age", null: false
-    t.boolean "married", default: false
-    t.integer "children", default: 0
-    t.string "family_type", default: "single"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "bio"
-    t.decimal "family_average_income", default: "0.0"
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_profiles_on_user_id"
   end

@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    Profile.create(name: params["name"], gender: params["gender"], age: params["age"].to_i, profile_pic: params["profile_pic"], cover_pic: params["cover_pic"], married: params["married"], children: params["children"].to_i, family_type: params["family_type"], family_average_income: params["family_average_income"].to_f, bio: params["bio"], user_id: current_user.id)
+    Profile.create(name: params["name"], gender: params["gender"], age: params["age"].to_i, profile_pic: params["profile_pic"], cover_pic: params["cover_pic"], bio: params["bio"], user_id: current_user.id)
     redirect_to profiles_path(current_user.id)
   end
 
@@ -16,10 +16,6 @@ class ProfilesController < ApplicationController
     new_profile.name = params[:name]
     new_profile.gender = params[:gender]
     new_profile.age = params[:age].to_i
-    new_profile.married = params[:married]
-    new_profile.children = params[:children].to_i
-    new_profile.family_type = params[:family_type]
-    new_profile.family_average_income = params[:family_average_income].to_f
     new_profile.bio = params[:bio]
 
     if (!params[:profile_pic].nil?)

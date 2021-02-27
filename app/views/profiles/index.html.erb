@@ -36,134 +36,78 @@
         </div>
     </div>
 
+    <div class="container-fluid mt-4 d-flex justify-content-center">
+        <div class="text-center profile-wrapper shadow">
+            <div class="">
+                <%# background image here %>
+                <div class="cover_pic_background">
+                    <div style="position:relative; top: 7em;">
+                        <% if @profile["profile_pic"] == "" %>
+                            <%= image_tag "default_pp1.png", style: "width: 10em; border-radius: 10em;" %>
+                        <% else %>
+                            <%= image_tag url_for(@profile.profile_pic), style: "max-width: 10em; max-height: 10em; border-radius: 2em;" %> 
+                        <% end %>
 
-    <div class="row text-center">
-        <div class=" col-md-6 m-auto ">
-            <%# background image here %>
-            <div class="cover_pic_background">
-                <div style="position:relative; top: 7em;">
-                    <% if @profile["profile_pic"] == "" %>
-                        <%= image_tag "default_pp1.png", style: "width: 10em; border-radius: 10em;" %>
-                    <% else %>
-                        <%= image_tag url_for(@profile.profile_pic), style: "max-width: 10em; max-height: 10em; border-radius: 2em;" %> 
-                    <% end %>
+                        <h4 class="font-weight-bold"><%= @profile["name"] %></h4>
+                        <div class="text-secondary"><%= @profile["bio"] %></div>
 
-                    <h4 class="font-weight-bold"><%= @profile["name"] %></h4>
-                    <div class="text-secondary"><%= @profile["bio"] %></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+            </div>
+
+            <div class="text-left">
+                <%# email %>
+                <div class="row" style="margin-top: 7em;">
+                    <div class="col-md-12 my-1">
+                        <div class="row m-auto">
+                            <div class="col-2 text-center">
+                                <span class="fa fa-envelope fa-2x"></span>
+                            </div>
+                            <div class="col-10">
+                                <div class="font-weight-bold">Email</div>
+                                <div class="text-secondary"><%= User.find(@profile["user_id"]).email %></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%# age %>
+                    <div class="col-md-12 my-1">
+                        <div class="row m-auto">
+                            <div class="col-2 text-center">
+                                <span class="fa fa-bookmark fa-2x"></span>
+                            </div>
+                            <div class="col-10">
+                                <div class="font-weight-bold">Age</div>
+                                <div class="text-secondary"><%= @profile["age"] %> Years</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%# gender %>
+                    <div class="col-md-12 my-1">
+                        <div class="row m-auto">
+                            <div class="col-2 text-center">
+                                <% if @profile["gender"] == "male" %>
+                                    <span class="fa fa-male fa-2x"></span>
+                                <% elsif @profile["gender"] == "female" %>
+                                    <span class="fa fa-female fa-2x"></span>
+                                <% end %>
+
+                            </div>
+                            <div class="col-10">
+                                <div class="font-weight-bold">Gender</div>
+                                <div class="text-secondary"><%= @profile["gender"] %></div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
+
         </div>
-
-        <div class="col-12">
-        </div>
-
-        <div class="col-md-6 m-auto text-left">
-            <%# email %>
-            <div class="row" style="margin-top: 7em;">
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <span class="fa fa-envelope fa-2x"></span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Email</div>
-                            <div class="text-secondary"><%= User.find(@profile["user_id"]).email %></div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# age %>
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <span class="fa fa-bookmark fa-2x"></span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Age</div>
-                            <div class="text-secondary"><%= @profile["age"] %> Years</div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# gender %>
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <% if @profile["gender"] == "male" %>
-                                <span class="fa fa-male fa-2x"></span>
-                            <% elsif @profile["gender"] == "female" %>
-                                <span class="fa fa-female fa-2x"></span>
-                            <% end %>
-
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Gender</div>
-                            <div class="text-secondary"><%= @profile["gender"] %></div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# relationship status %>
-                <% marriage_status = @profile["married"]== false ? "Unmarried" : "Married" %>
-
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <span class="far fa-handshake fa-2x" aria-hidden="true"></span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Relationship Status</div>
-                            <div class="text-secondary"> <%= marriage_status %> </div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# children %>
-                <% if marriage_status == "Married"%>
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                        <span class="fa fa-child fa-2x"></span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Children</div>
-                            <div class="text-secondary"><%= @profile["children"] %></div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# family Type %>
-                <div class="col-md-12 my-1">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <span class="fa fa-home fa-2x"></span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Family Type</div>
-                            <div class="text-secondary"><%= @profile["family_type"] %></div>
-                        </div>
-                    </div>
-                </div>
-
-                <%# family income %>
-                <div class="col-md-12 my-1 mb-3 ">
-                    <div class="row m-auto">
-                        <div class="col-2 text-center">
-                            <span class="fa-2x font-weight-bold" >$</span>
-                        </div>
-                        <div class="col-10">
-                            <div class="font-weight-bold">Family Average Income</div>
-                            <div class="text-secondary"><%= @profile["family_average_income"] %></div>
-                        </div>
-                    </div>
-                </div>
-
-                <% end %>
-
-            </div>
-        </div>
-
     </div>
 
 <% else %>
@@ -173,7 +117,6 @@
         <br><br>
         <button class="btn btn-primary btn-lg" style="box-shadow: 0 0 10px grey;" data-toggle="modal" data-target="#createProfile">Create Profile</button>
     </div>
-
 
      <%# form area to create profile %>
 
