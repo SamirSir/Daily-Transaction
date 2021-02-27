@@ -13,11 +13,15 @@
         <div class="col-lg-4 col-md-6 footer-links text-center">
           <h4>Useful Links</h4>
           <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Terms of service</a></li>
-            <li><a href="#">Privacy policy</a></li>
+            <li><a href="<%= home_path %>">Home</a></li>
+            <% if user_signed_in? %>
+              <li><a href="<%= profiles_path(current_user.id) %>"><%= username(current_user.id) %></a></li>
+            <% end %>
+            <li><a href="<%= invitations_path %>">Invitations</a></li>
+            <% if @group %>
+               <li><a href="<%= notifications_path(@group) %>">Notifications</a></li>
+            <% end %>
+            <li><a href="<%= setting_path %>">Setting</a></li>
           </ul>
         </div>
 

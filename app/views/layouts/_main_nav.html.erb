@@ -10,12 +10,12 @@
 		</div>
 
 		<div class="group">
-						<%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
+            <%= render "layouts/collapse_expand", {type:"group", tag: "Groups", listId: "groupList", items: current_user.groups} %>
 		</div>
 
 		<div class="invitation">
-						<a href="<%= invitations_path %>">
-						<span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
+            <a href="<%= invitations_path %>">
+            <span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
 		</div>
 
 		<% if @group %>
@@ -38,7 +38,8 @@
             <span id="openSideNav" style="font-size: 1.5em; cursor:pointer;" onclick="openNav()">&#9776;</span>
         <% end %>
     </div>
-    <div class="flex-fill d-flex justify-content-center">
+
+    <div class="d-flex justify-content-center flex-fill">
         <span class="font-effect-multiple-shadow title_name">Daily Transaction
             <%= @group ? '('+@group.name.titleize+')': "" %>
         </span>
@@ -50,7 +51,7 @@
             <% if User.find(current_user.id).admin %>
                 <%= link_to "Admin Panel", rails_admin_path(current_user.id), class: "header-link" %>&nbsp;
             <% end %>
-            <%= link_to username(current_user.email), profiles_path(current_user.id), class: "header-link" %>&nbsp;
+            <%= link_to username(current_user.id), profiles_path(current_user.id), class: "header-link" %>&nbsp;
             <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "header-link" %>
         <% else %>
             <%= link_to "Back", root_path, class: "header-link" %>&nbsp;

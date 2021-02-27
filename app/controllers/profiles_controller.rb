@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
 
   def index
     @profile = Profile.find_by_user_id(current_user.id)
