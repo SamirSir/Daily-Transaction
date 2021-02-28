@@ -73,6 +73,10 @@ def show
     @loans = @group.loans
 end
 
+def setting
+    @groups = raw_data("select groups.id, groups.name from memberships left join groups on memberships.group_id = groups.id where memberships.user_id = #{current_user.id} and memberships.confirmed")
+end
+
 def create
     fparams = params.permit!
     group_name = fparams['group_name']
@@ -87,8 +91,12 @@ def create
     end
 end
 
-def setting
-   @groups = raw_data("select groups.id, groups.name from memberships left join groups on memberships.group_id = groups.id where memberships.user_id = #{current_user.id} and memberships.confirmed")
+def delete
+    fparams = params.permit!
+    group_id = fparams["group_id"].to_i
+    group_name = Group.find(group_id).name
+    Group.find(group_id).destroy
+    flash['notice'] = "'#{ group_name }' group has been destroyed successfully!"
 end
 
 private

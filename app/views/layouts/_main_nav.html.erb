@@ -41,7 +41,9 @@
 
     <div class="d-flex justify-content-center flex-fill">
         <span class="font-effect-multiple-shadow title_name">Daily Transaction
-            <%= @group ? '('+@group.name.titleize+')': "" %>
+        <% if @group %>
+            (<a href="/groups/<%= @group.id %>"><%= @group.name.titleize %></a>)
+        <% end %>
         </span>
     </div>
 

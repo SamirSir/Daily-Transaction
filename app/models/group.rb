@@ -1,14 +1,13 @@
 class Group < ApplicationRecord
 
-    has_many :loans
-    has_many :incomes
-    has_many :expenses
-    has_many :savings
+    has_many :loans, dependent: :destroy
+    has_many :incomes, dependent: :destroy
+    has_many :expenses, dependent: :destroy
+    has_many :savings, dependent: :destroy
 
     has_many :memberships, :dependent => :destroy
-    has_many :users, through: :memberships, :dependent => :destroy
-   
-    
+    has_many :users, through: :memberships, dependent: :destroy
+
     # helper
     #  requested member
     def pending_members

@@ -1,9 +1,10 @@
 class ProfilesController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :set_user
   # before_action :authenticate_user!
 
   def index
-    @profile = Profile.find_by_user_id(current_user.id)
+    @profile = Profile.find_by_user_id(@user.id)
   end
 
   def create
@@ -28,6 +29,12 @@ class ProfilesController < ApplicationController
 
     new_profile.save
     redirect_to profiles_path(current_user.id)
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 
 end

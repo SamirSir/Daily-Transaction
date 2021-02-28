@@ -13,7 +13,6 @@ class User < ApplicationRecord
   # group
   has_many :memberships, dependent: :destroy
   has_many :groups, through: :memberships, dependent: :destroy
-  
 
   # user helper
   def group_requests

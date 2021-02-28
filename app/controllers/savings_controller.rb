@@ -3,7 +3,7 @@ class SavingsController < ApplicationController
   before_action :set_group
   before_action :authenticate_user!
 
-  def index 
+  def index
     if @group.id == 0
       @savings = Saving.all.where(user_id: current_user.id, group_id: @group.id).order('id desc')
       @savings_for_graph = raw_data("SELECT SAVINGS.SAVED_ON, SAVINGS.AMOUNT FROM SAVINGS WHERE SAVINGS.USER_ID=#{current_user.id} AND SAVINGS.GROUP_ID=#{@group.id}")
@@ -25,10 +25,10 @@ class SavingsController < ApplicationController
 
   def delete
     Saving.find(params[:delete_id]).delete
-  end 
+  end
 
   private
- 
+
   def set_group
     @group = Group.find(params[:id])
   end

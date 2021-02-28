@@ -1,0 +1,25 @@
+
+<!--Modal: modalConfirmDelete-->
+<div class="modal fade" id="deleteGroup<%= group[0] %>" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <!--Content-->
+    <div class="modal-content text-center">
+      <!--Header-->
+      <div class="modal-header bg-danger text-light d-flex justify-content-center">
+        <i class="fas fa-times fa-3x text-white"></i>
+      </div>
+
+      <!--Body-->
+      <div class="modal-body">
+        <p class="heading m-0 text-danger font-weight-bold">Are you sure to destroy '<%= group[1] %>' group?</p>
+      </div>
+
+      <!--Footer-->
+      <div class="modal-footer flex-center justify-content-center">
+        <button class="btn btn-outline-danger destroy_group" data-id="<%= group[0] %>">Yes</button>
+        <button type="button" class="btn  btn-danger waves-effect" data-dismiss="modal">No</button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>

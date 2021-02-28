@@ -15,17 +15,20 @@ Rails.application.routes.draw do
   post '/groups/create'
   get 'groups', to: 'groups#index', as: :groups
   get '/groups/:id', to: 'groups#show', as: :group
+  delete 'groups/:id', to: 'groups#delete', as: :destroy_group
 
   # memberships
   post '/memberships/create'
   get '/memberships/invitations', as: :invitations
   post '/memberships/accept_membership'
   delete '/memberships/reject_membership'
+  delete '/memberships/leave_group'
+  delete '/memberships/kickout'
 
   # profile
-  get 'profiles/:id', to: 'profiles#index', as: :profiles
-  post 'profiles/create'
-  post 'profiles/edit'
+  get '/profiles/:id', to: 'profiles#index', as: :profiles
+  post '/profiles/create', to: 'profiles#create'
+  post '/profiles/:id/edit', to: 'profiles#edit'
 
   # savings
   get '/groups/:id/savings', to: 'savings#index', as: :savings

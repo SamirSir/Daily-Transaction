@@ -15,7 +15,9 @@
         <% if type == "member" %>
             <% items.each_with_index do |item, i| %>
                 <p class="">
-                    <span class="font-weight-bolder"><%= i+1 %>. <%= username(item.id) %></span>
+                    <span class="font-weight-bolder">
+                        <%= i+1 %>. <a href="/profiles/<%= item.id %>"><%= username(item.id) %></a>
+                    </span>
                 </p>
             <% end %>
         <% elsif type == "group" %>

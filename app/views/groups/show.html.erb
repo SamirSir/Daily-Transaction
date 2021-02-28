@@ -46,7 +46,7 @@
         <%# Create Membership Section %>
 
         <%# to hide members in personal group %>
-        <% if @group.id != 0 %>
+        <% if @group.id != 0 && admin?(@group.id, current_user.id) %>
             <div class="row border shadow p-sm-2 rounded">
                 <div class="col-12 text-primary font-weight-bolder">Add member</div>
                 <hr>

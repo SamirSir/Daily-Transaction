@@ -1,5 +1,131 @@
+<div class="row container-fluid my-5">
+    <div class="col-md-4 m-auto">
+        <div class="invitation shadow rounded">
 
-<% @groups.each do |g| %>
-    <%= g[1] %>
-    <%= members_of_group(g[0]) %>
-<% end %>
+            <%# request heading %>
+            <div class="invitation-heading rounded-top text-light bg-primary text-center p-3 ">
+                <div class="switch">Personal/Group</div>
+                <div class="fa fa-3x my-2 fa-cog"></div>
+                <div class="invitation-title">Settings</div>
+            </div>
+
+            <%#  requests  %>
+            <div class="invitation-list p-2">
+                <% if @groups.count == 0 %>
+                    <div class="no-invitation text-center">
+                        <div class="h3 text-secondary my-5">You don't belong to any group!</div>
+                    </div>
+                <% else %>
+                    <% @groups.each do |g| %>
+                        <div class="row invitation-group">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <h3 class="invitation-from"><%= g[1] %></h3>
+                                    </div>
+                                    <div class="col-5 text-center">
+                                         <% if admin?(g[0], current_user.id) %>
+                                            <button class="shadow btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteGroup<%= g[0] %>">Destroy</button>
+                                            <%= render 'layouts/delete_group', group: g %>
+                                        <% else %>
+                                            <button class="shadow btn btn-primary btn-sm" data-toggle="modal" data-target="#leaveGroup<%= g[0] %>">Leave</button>
+                                            <%= render 'layouts/leave_group', group: g %>
+                                        <% end %>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <% members_of_group(g[0]).each do |member| %>
+                                    <div class="row my-2">
+                                        <div class="col-7 text-right">
+                                            <input type="hidden" class="group_id" value="1">
+                                            <span class="invitation-from"><%= username(member[0]) %></span>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <% if admin?(g[0], member[0]) %>
+                                                <span class="invitation-from font-weight-bolder">Admin</span>
+                                            <% else %>
+                                                <% if admin?(g[0], current_user.id ) %>
+                                                    <button class="kick-out shadow btn btn-primary btn-sm" data-toggle="modal" data-target="#kickoutMember<%= g[0] %><%= member[0] %>">Kick Out</button>
+                                                    <%= render 'layouts/kick_out_member', group: g, member: member %>
+                                                <% end %>
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                        </div>
+
+                        <% if @groups.count > 0 %>
+                        <hr>
+                        <% end %>
+
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    // destroy group
+    $(".destroy_group").on("click", function(){
+        let group_id = parseInt($(this).attr('data-id'));
+        $.ajax({
+            url: `/groups/${ group_id }`,
+            type: 'delete',
+            dataType: 'json',
+            // controller have group id from url/route
+            data: {group_id: group_id},
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+    });
+
+    // leave group
+    $(".kickOutMember").on("click", function(){
+        let group_id = $(this).attr('data-group-id');
+        let member_id = $(this).attr('data-member-id');
+
+        $.ajax({
+            url: '/memberships/kickout',
+            type: 'delete',
+            dataType: 'json',
+            // membership controller have current user
+            data: { group_id, member_id },
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+    });
+
+    // leave group
+    $(".leave_group").on("click", function(){
+        let group_id = parseInt($(this).attr('data-id'));
+        $.ajax({
+            url: '/memberships/leave_group',
+            type: 'delete',
+            dataType: 'json',
+            // membership controller have current user
+            data: { group_id: group_id },
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+    });
+
+});
+</script>

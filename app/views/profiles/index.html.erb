@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid mt-4" >
 <% if !@profile.nil? %>
 
 <style type="text/css">
@@ -12,10 +12,11 @@
 </style>
 
     <%# edit modal %>
-    <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#edit_profile">
-        <span class="fa fa-edit"></span> Edit Profile
-    </button>
-
+    <% if @user == current_user %>
+        <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#edit_profile">
+            <span class="fa fa-edit"></span> Edit Profile
+        </button>
+    <% end %>
     <%# Edit form %>
     <div class="modal fade" id="edit_profile" role="dialog">
         <div class="modal-dialog modal-lg">
@@ -113,7 +114,7 @@
 <% else %>
 
     <div class="mt-4 text-center">
-        <span class="h1 font-weight-bold text-primary" style="text-shadow: 0 0 3px blue;">Opps!<br> you haven't created your profile yet!<br> 😕 </span>
+        <span class="h1 font-weight-bold text-primary" style="text-shadow: 0 0 3px blue;">Opps!<br> Profile has not been created yet!<br> 😕 </span>
         <br><br>
         <button class="btn btn-primary btn-lg" style="box-shadow: 0 0 10px grey;" data-toggle="modal" data-target="#createProfile">Create Profile</button>
     </div>
@@ -152,12 +153,6 @@
 <script type="text/javascript">
 $(function(){
 
-    //  toggle input field on marriage type change
-    $("form input[name=married]").on("change", function(){
-        var marital_status = $("form input[name=married]:checked").val();
-        console.log(marital_status);
-        $("form .hide").toggle("hide");
-    });
 
     // image validation
     $("form input[type=file]").on("change", function(){

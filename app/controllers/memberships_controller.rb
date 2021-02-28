@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+
+  include ApplicationHelper
   before_action :authenticate_user!
 
   def create
@@ -38,4 +40,20 @@ class MembershipsController < ApplicationController
   end
 
   def invitations; end
+
+  def leave_group
+    fparams = params.permit!
+    group_id = fparams['group_id'].to_i
+    Membership.find_by(group_id: group_id, user_id: current_user.id).destroy
+    flash.notice = "You left '#{Group.find(group_id).name}' group !"
+  end
+
+  def kickout
+    fparams = params.permit!
+    group_id = fparams['group_id'].to_i
+    user_id = fparams['member_id'].to_i
+    Membership.find_by(group_id: group_id, user_id: user_id).destroy
+    flash.notice = "'#{username(user_id)}' has been kicked out from '#{Group.find(group_id).name}' group !"
+  end
+
 end
