@@ -9,7 +9,7 @@ edit_action: "/groups/#{@group.id}/loans/edit"
     <% ise_title = ises[0].has_attribute?('source') ? "income" : ises[0].has_attribute?('spent_on') ? "expense" : ises[0].has_attribute?('saved_on') ? "saving" : "loan" %>
 
     <%# Title and add section %>
-    <div class="col-12">
+    <div class="col-12  ">
         <%= render 'layouts/add_isel', name: ise_title, create_action: "/groups/#{@group.id}/#{ise_title}s/create" %>
     </div>
 
@@ -35,7 +35,7 @@ edit_action: "/groups/#{@group.id}/loans/edit"
                         <td><%= ise.amount %></td>
                         <td><%= ise.description.truncate(15) %></td>
                         <% if group_of(ises) !=0 %>
-                        <td><%= User.find(ise.user_id).email %></td>
+                        <td><%= username(ise.user_id) %></td>
                         <% end %>
                         <td>
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<%= ise.id %>">View</button>

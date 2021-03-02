@@ -116,7 +116,9 @@
     <div class="mt-4 text-center">
         <span class="h1 font-weight-bold text-primary" style="text-shadow: 0 0 3px blue;">Opps!<br> Profile has not been created yet!<br> 😕 </span>
         <br><br>
-        <button class="btn btn-primary btn-lg" style="box-shadow: 0 0 10px grey;" data-toggle="modal" data-target="#createProfile">Create Profile</button>
+        <% if @user == current_user %>
+            <button class="btn btn-primary btn-lg" style="box-shadow: 0 0 10px grey;" data-toggle="modal" data-target="#createProfile">Create Profile</button>
+        <% end %>
     </div>
 
      <%# form area to create profile %>

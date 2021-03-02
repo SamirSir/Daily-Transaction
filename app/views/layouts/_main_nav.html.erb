@@ -51,7 +51,7 @@
     <%# <%= user_signed_in? ? current_user.email : "Login" %>
         <% if user_signed_in? %>
             <% if User.find(current_user.id).admin %>
-                <%= link_to "Admin Panel", rails_admin_path(current_user.id), class: "header-link" %>&nbsp;
+                <%# link_to "Admin Panel", rails_admin_path(current_user.id), class: "header-link" %>&nbsp;
             <% end %>
             <%= link_to username(current_user.id), profiles_path(current_user.id), class: "header-link" %>&nbsp;
             <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "header-link" %>
