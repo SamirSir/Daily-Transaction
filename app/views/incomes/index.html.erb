@@ -2,8 +2,14 @@
 
     <%# record %>
     <div class="col-md-8">
-        <div class="container-fluid">
-            <%= render 'layouts/all_ise', ises: @incomes, edit_action: "/groups/#{@group.id}/incomes/edit" %>
+        <div class="container-fluid row">
+            <div class="col-12">
+                <%= render 'layouts/add_isel', name: 'income', create_action: "/groups/#{@group.id}/incomes/create", edit_action: '' %>
+            </div>
+
+            <div class="col-12">
+                <%= render 'layouts/all_ise', ises: @incomes, edit_action: "/groups/#{@group.id}/incomes/edit" %>
+            </div>
         </div>
     </div>
 

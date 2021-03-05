@@ -1,10 +1,21 @@
-<div class="modal fade" id="viewDetail<%= ise.id %>">
+<%# required
+    ise_type
+    ise
+ %>
+
+<% type = ise.has_attribute?('source') ? 'incomes'
+    : ise.has_attribute?('spent_on') ? 'expense'
+    : ise.has_attribute?('saved_on') ? 'saving'
+    : ise.has_attribute?('loan_from') ? 'loan' : ''
+%>
+
+<div class="container modal fade" id="viewDetail<%= ise_type %><%= ise.id %>">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <%# header %>
             <div class="modal-header bg-primary text-light">
-                <div class="modal-title font-weight-bolder"><%= ise_type %> Details</div>
+                <div class="modal-title font-weight-bolder"><%= ise_type.titleize %> Details</div>
                 <button class="close text-light" data-dismiss="modal">&times;</button>
             </div>
 
@@ -12,19 +23,19 @@
             <div class="modal-body bg-light">
                 <p>
                 <% if ise.has_attribute?('source') %>
-                    <strong>Source:</strong> <%= ise.source %>
+                    <strong>Source:</strong> <%= ise.source.titleize %>
                 <% elsif ise.has_attribute?('spent_on') %>
-                    <strong>Spent On:</strong> <%= ise.spent_on %>
+                    <strong>Spent On:</strong> <%= ise.spent_on.titleize %>
                 <% elsif ise.has_attribute?('saved_on') %>
-                    <strong>Saved On:</strong> <%= ise.saved_on %>
+                    <strong>Saved On:</strong> <%= ise.saved_on.titleize %>
                 <% elsif ise.has_attribute?('loan_from') %>
-                    <strong>Loan From:</strong> <%= ise.loan_from %>
+                    <strong>Loan From:</strong> <%= ise.loan_from.titleize %>
                 <% end %>
                 </p>
                 <p><strong>Amount:</strong>  Rs.<%= ise.amount %> </p>
                 <p><strong>Description:</strong> <%= ise.description %></p>
-                <p><strong>Created at:</strong> <%= ise.created_at %></p>
-                <p><strong>Updated at:</strong> <%= ise.updated_at %></p>
+                <p><strong>Created at:</strong> <%= get_readable_date_time(ise.created_at) %></p>
+                <p><strong>Updated at:</strong> <%= get_readable_date_time(ise.updated_at) %></p>
             </div>
 
             <%# footer %>

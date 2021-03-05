@@ -1,0 +1,105 @@
+<%#
+    edit_action
+    loans
+ %>
+
+<!-- The Modal -->
+<div class="modal fade" id="payLoan">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-primary text-light">
+                <h4 class="modal-title">Pay <%= heading %></h4>
+                <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body text-left font-weight-bold">
+                <form accept-charset="UTF-8" action= "/groups/<%= @group.id %>/loans/pay_loan" method="post" autocomplete="off" class="was-validated">
+
+                <%# Special pattern  for put through HTML %>
+                <input type="hidden" name="pay_loan_id" class="pay-loan-id" value="<%= loans.first.id %>">
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="title">Loan From</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control loan-from" name="title" required>
+                                <% loans.each do |loan| %>
+                                    <option value="<%= loan.loan_from %>"
+                                        data-loan-id="<%= loan.id %>"
+                                        data-amount="<%= loan.amount %>"
+                                        data-description="<%= loan.description %>"
+                                    >
+                                        <%= loan.loan_from %>
+                                    </option>
+                                <% end %>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="amount">Amount</label>
+                        </div>
+                        <div class="col-9">
+                            Amount to Pay: <span class="amount-to-pay"><%= loans.first.amount %></span>
+                            <input type="number" placeholder="Amount: Rs. ..." class="amount form-control" name="amount" value="<%= loans.first.amount %>"  max="<%= loans.first.amount %>" min="0" step="any" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col-3">
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" placeholder="Description Here" class="description form-control" name="description" value="<%= loans.first.description %>" disabled required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row m-auto">
+                        <div class="col">
+                            <button type="submit" class="btn btn-sm btn-primary">Pay Loan</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function(){
+
+    // pay loan
+    $(".loan-from").on("change", function(){
+        let selectedLoanId = $(this).find('option:selected').attr('data-loan-id');
+        let selectedAmount = $(this).find('option:selected').attr('data-amount');
+        let selectedDescription = $(this).find('option:selected').attr('data-description');
+        $(this).closest('form').find('.pay-loan-id').val(selectedLoanId);
+        $(this).closest('form').find('.amount').val(selectedAmount);
+        $(this).closest('form').find('.amount').attr('max', selectedAmount);
+        $(this).closest('form').find('.amount-to-pay').html(selectedAmount);
+        $(this).closest('form').find('.description').val(selectedDescription);
+    });
+
+});
+</script>

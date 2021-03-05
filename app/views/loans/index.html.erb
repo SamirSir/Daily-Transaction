@@ -1,8 +1,16 @@
 <div class="row container-fluid yield">
 
-    <%# record %>
+     <%# record %>
     <div class="col-md-8">
-        <%= render 'layouts/all_ise', ises: @loans, edit_action: "/groups/#{@group.id}/loans/edit" %>
+        <div class="container-fluid row">
+            <div class="col-12">
+                <%= render 'layouts/add_isel', name: 'loan', create_action: "/groups/#{@group.id}/loans/create", edit_action: "/groups/#{@group.id}/loans/edit", loans: @loans %>
+            </div>
+
+            <div class="col-12">
+                <%= render 'layouts/all_ise', ises: @loans, edit_action: "/groups/#{@group.id}/loans/edit" %>
+            </div>
+        </div>
     </div>
 
     <%# info %>

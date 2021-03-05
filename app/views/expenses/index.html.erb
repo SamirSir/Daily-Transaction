@@ -1,9 +1,18 @@
 <div class="row container-fluid yield" >
 
+
+
     <%# record %>
     <div class="col-md-8">
-        <%# all record through partial %>
-        <%= render 'layouts/all_ise', ises: @expenses, edit_action: "/groups/#{@group.id}/expenses/edit" %>
+        <div class="container-fluid row">
+            <div class="col-12">
+                <%= render 'layouts/add_isel', name: 'expense', create_action: "/groups/#{@group.id}/expenses/create", edit_action: '' %>
+            </div>
+
+            <div class="col-12">
+                <%= render 'layouts/all_ise', ises: @expenses, edit_action: "/groups/#{@group.id}/expenses/edit" %>
+            </div>
+        </div>
     </div>
 
     <%# info %>

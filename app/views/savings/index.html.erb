@@ -1,7 +1,15 @@
 <div class="row container-fluid yield">
     <%# record %>
     <div class="col-md-8">
-        <%= render 'layouts/all_ise', ises: @savings, edit_action: "/groups/#{@group.id}/savings/edit" %>
+        <div class="container-fluid row">
+            <div class="col-12">
+                <%= render 'layouts/add_isel', name: 'saving', create_action: "/groups/#{@group.id}/savings/create", edit_action: '' %>
+            </div>
+
+            <div class="col-12">
+                <%= render 'layouts/all_ise', ises: @savings, edit_action: "/groups/#{@group.id}/savings/edit" %>
+            </div>
+        </div>
     </div>
 
     <%# info %>

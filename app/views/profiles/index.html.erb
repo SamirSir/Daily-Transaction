@@ -46,7 +46,7 @@
                         <% if @profile["profile_pic"] == "" %>
                             <%= image_tag "default_pp1.png", style: "width: 10em; border-radius: 10em;" %>
                         <% else %>
-                            <%= image_tag url_for(@profile.profile_pic), style: "max-width: 10em; max-height: 10em; border-radius: 2em;" %> 
+                            <%= image_tag url_for(@profile.profile_pic), style: "width: 10em; height: 10em; border-radius: 5em;" %>
                         <% end %>
 
                         <h4 class="font-weight-bold"><%= @profile["name"] %></h4>
@@ -61,7 +61,7 @@
 
             <div class="text-left">
                 <%# email %>
-                <div class="row" style="margin-top: 7em;">
+                <div class="row" style="margin-top: 7em; margin-bottom: 1em;">
                     <div class="col-md-12 my-1">
                         <div class="row m-auto">
                             <div class="col-2 text-center">

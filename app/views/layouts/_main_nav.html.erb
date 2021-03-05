@@ -18,7 +18,7 @@
             <span class="fa far fa-envelope"></span>&nbsp; Invitations </a>
 		</div>
 
-		<% if @group %>
+		<% if @group && !@group.id.zero?%>
 			<div class="notification">
 				<a href="<%= notifications_path(@group) %>">
 				<span class="fa fa-bell"></span>&nbsp; Notifications</a>

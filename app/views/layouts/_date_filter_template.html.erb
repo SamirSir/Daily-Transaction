@@ -1,3 +1,7 @@
+<%# required params
+    page 'PageName'
+ %>
+
 <div class="date-span row border rounded py-2 shadow mb-sm-4">
     <div class="col-12 font-weight-bolder text-primary">
         Filter report summary
@@ -11,7 +15,7 @@
         <input type="date" class="p-0 date_to" value="<%= Date.today %>" max="<%= Date.today %>" required/>
     </div>
     <div class="col text-left pt-2">
-        <button class="btn btn-primary btn-sm getDateWiseData" >Filter</button>
+        <button class="btn btn-primary btn-sm getDateWiseData">Filter</button>
     </div>
 </div>
 

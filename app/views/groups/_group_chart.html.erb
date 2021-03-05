@@ -30,7 +30,7 @@
   <div class="col-11 m-auto">
 
     <select id="chart_type" class="btn w-50" style="background-color: lightgreen;" >
-      <option value="line_chart">Line Chart</option>
+      <%# <option value="line_chart">Line Chart</option> %>
       <option value="column_chart">Column Chart</option>
       <option value="bar_chart">Bar Chart</option>
       <option value="pie_chart">Pie Chart</option>
@@ -39,11 +39,11 @@
     <div class="chart_list mt-2">
 
       <%# multiple line is needed %>
-      <div class="chart" id="line_chart">
-          <%= line_chart @ise_amount_list, title: "Aggregate Details in Line chart", xtitle: "Progress", ytitle: "Amount (Rs.)" %>
-      </div>
+      <%# <div class="chart" id="line_chart"> %>
+          <%# line_chart @ise_amount_list, title: "Aggregate Details in Line chart", xtitle: "Progress", ytitle: "Amount (Rs.)" %>
+      <%# </div> %>
 
-      <div class="chart hide" id="column_chart">
+      <div class="chart" id="column_chart">
           <%= column_chart @total_data, title: " Aggregate Details in Column chart", xtitle: "Monitory Types", ytitle: "Amount (Rs.)" %>
       </div>
 
@@ -68,7 +68,7 @@ $( document ).on('turbolinks:load', function() {
     // $("#chart_type").trigger("reset");
     // $("#chart_type").get(0).reset();
     // $("#chart_type")[0].reset();
-    $("#chart_type").val("line_chart");
+    $("#chart_type").val("column_chart");
 });
 
 $(function(){

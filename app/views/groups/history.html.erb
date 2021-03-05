@@ -1,0 +1,111 @@
+
+<div class="row container-fluid m-auto">
+    <%# header summary + date filter %>
+    <div class="col-12 mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="row m-auto text-center">
+                    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow incomes">
+                        <span class="amount"><%= @total[:incomes] %></span>
+                        <span class="amount-type">Incomes</span>
+                    </div>
+
+                    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow savings">
+                        <span class="amount"><%= @total[:savings] %></span>
+                        <span class="amount-type">Savings</span>
+                    </div>
+
+                    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow expenses">
+                        <span class="amount"><%= @total[:expenses] %></span>
+                        <span class="amount-type">Expenses</span>
+                    </div>
+
+                    <div class="col-sm-5 mx-auto my-2 p-2 rounded shadow loans">
+                        <span class="amount"><%= @total[:loans] %></span>
+                        <span class="amount-type">Loans</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-10 m-auto">
+                        <%= render 'layouts/date_filter_template' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%# datatable %>
+    <div class="col-12">
+        <% if !@history.empty? %>
+        <table id="dataTable" class="table">
+            <thead>
+                <th>Issued Date</th>
+                <th>Title</th>
+                <th>Amount</th>
+                <th style="width: 25%;">Description</th>
+                <% if @group.id !=0 %>
+                <th>Member</th>
+                <% end %>
+                <th>Details</th>
+            </thead>
+
+            <tbody>
+                <% @history.each do |history| %>
+                    <% history_title = history.has_attribute?('source') ? 'income'
+                        : history.has_attribute?('spent_on') ? 'expense'
+                        : history.has_attribute?('saved_on') ? 'saving'
+                        : history.has_attribute?('loan_from') ? 'loan' : ''
+                    %>
+
+                    <tr class="<%= history_title %>s">
+                        <td><%= get_readable_date_time(history.created_at) %></td>
+                        <td>
+                           <%= history.has_attribute?('source') ? 'Income: '+history.source
+                            : history.has_attribute?('spent_on') ? 'Spend: '+history.spent_on
+                            : history.has_attribute?('saved_on') ? 'Saved: '+history.saved_on
+                            : history.has_attribute?('loan_from') ? 'Loan: '+history.loan_from : ''
+                            %>
+                        </td>
+                        <td><%= history.amount %></td>
+                        <td><%= history.description %></td>
+                        <% if @group.id !=0 %>
+                        <td><a href="<%= profiles_path(history.user_id) %>" class="<%= history_title %>s"><%= username(history.user_id) %></a></td>
+                        <% end %>
+                        <td>
+                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<%= history_title %><%= history.id %>">View</button>
+                            <%= render 'layouts/view_detail', ise: history, ise_type: history_title %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+        <% else %>
+            <div class="h1 font-weight-bold text-danger text-center mt-4">
+                <span style="text-shadow: 0 0 3px red;">Opps!<br> you don't have any data </span><br> 😕
+            </div>
+        <% end %>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+    // dataTable initialization
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+
+    //  get date by filtering the data for history page
+    $(".getDateWiseData").on("click", function(event){
+        var dateSpan = event.target.closest(".date-span");
+        var date_from = $(dateSpan).find("input.date_from").val();
+        var date_to = $(dateSpan).find("input.date_to").val();
+        window.location.href = `/groups/<%= @group.id %>/history?date_from=${date_from}&date_to=${date_to}`;
+    });
+
+</script>

@@ -18,11 +18,11 @@
 
             <% else %>
             <%# pagination data %>
-                <div class="p-3">
+                <div class="p-2">
                     <% @notices.each_with_index do |report, index| %>
                         <% textColor = index.zero? ? 'green' : 'red' %>
                         <% backColor = index.zero? ? 'lightgreen' : 'rgb(245, 204, 202)' %>
-                        <div class=" d-flex justify-content-around align-items-center rounded shadow p-1 my-4 " style="color: <%= textColor %>; background-color: <%= backColor %>">
+                        <div class=" d-flex justify-content-around align-items-center rounded shadow p-2 my-4 " style="color: <%= textColor %>; background-color: <%= backColor %>">
                             <div class="amount-type"><%= report[0] %>&nbsp;:</div>
                             <div class="amount-type"><%= username(User.find(report[1][0]).id) if !report[1].nil? %></div>
                             <div class="amount"><%= report[1][1] if !report[1].nil? %></div>

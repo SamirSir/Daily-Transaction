@@ -1,7 +1,4 @@
-
-<%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Open modal</button> %>
-
-<!-- The Modal -->  
+<!-- The Modal -->
 <div class="modal fade" id="editDetail<%= ise.id %>">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -11,14 +8,14 @@
                 <h4 class="modal-title"><%= heading %></h4>
                 <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
             </div>
-            
+
             <!-- Modal body -->
             <div class="modal-body text-left font-weight-bold">
                 <form accept-charset="UTF-8" action= "<%= edit_action %>" method="post" autocomplete="off" class="was-validated">
 
                 <%# Special pattern  for put through HTML %>
                 <input type="hidden" name="edit_id" value="<%= ise.id %>">
-                
+
                 <div class="form-group">
                     <div class="row m-auto">
                         <div class="col-3">
@@ -38,7 +35,7 @@
                             <div class="invalid-feedback">Check this checkbox to continue.</div> %>
                         </div>
                     </div>
-                </div>  
+                </div>
 
                 <div class="form-group">
                     <div class="row m-auto">
@@ -75,13 +72,13 @@
                 </div>
 
             </form>
-            </div>           
+            </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
         </div>
-        
+
     </div>
 </div>

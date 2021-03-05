@@ -18,7 +18,7 @@
               <li><a href="<%= profiles_path(current_user.id) %>"><%= username(current_user.id) %></a></li>
             <% end %>
             <li><a href="<%= invitations_path %>">Invitations</a></li>
-            <% if @group %>
+            <% if @group && !@group.id.zero? %>
                <li><a href="<%= notifications_path(@group) %>">Notifications</a></li>
             <% end %>
             <li><a href="<%= setting_path %>">Settings</a></li>

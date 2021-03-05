@@ -1,11 +1,18 @@
 <div class="d-flex align-items-center">
     <div class="">
-        <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#myModal" style="box-shadow: 1px 1px 2px grey">Add <%= name.titleize %></button>
+        <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#createIsel" style="box-shadow: 1px 1px 2px grey">Add <%= name.titleize %></button>
         <%= render 'layouts/create_ise', create_action: create_action, heading: name %>
     </div>
     <div class="flex-fill">
-        <div class="text-center font-weight-bold text-light py-2"  style="font-size: 1.5em; text-shadow: 1px 1px 2px black, 0 0 20px blue, 0 0 5px darkblue;">
+        <div class="isel_title">
             <%= @group.name.titleize %> <%= name.titleize %> Details
         </div>
     </div>
+
+    <% if edit_action.present? %>
+    <div class="">
+        <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#payLoan" style="box-shadow: 1px 1px 2px grey">Pay Loan</button>
+        <%= render 'layouts/pay_loan', edit_action: edit_action, heading: name, loans: loans %>
+    </div>
+   <% end %>
 </div>

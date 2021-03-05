@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root 'reports#index'
 
   get 'groups', to: 'groups#index', as: :home
+  get 'groups/:id/history', to: 'groups#history', as: :history
   get 'groups/:id/notifications', to: 'reports#notifications', as: :notifications
   get 'setting', to: 'groups#setting', as: :setting
 
@@ -53,6 +54,8 @@ Rails.application.routes.draw do
   post '/groups/:id/loans/create', to: 'loans#create'
   post '/groups/:id/loans/edit', to: 'loans#edit'
   delete '/groups/:id/loans/delete', to: 'loans#delete'
+  post '/groups/:id/loans/pay_loan', to: 'loans#pay_loan'
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
