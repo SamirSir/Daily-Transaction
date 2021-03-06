@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   delete '/memberships/reject_membership'
   delete '/memberships/leave_group'
   delete '/memberships/kickout'
+  delete '/memberships/cancel_request'
 
   # profile
   get '/profiles/:id', to: 'profiles#index', as: :profiles

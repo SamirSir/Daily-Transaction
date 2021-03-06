@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <% if edit_action.present? %>
+    <% if edit_action.present? && loans.present? %>
     <div class="">
         <button type="button" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#payLoan" style="box-shadow: 1px 1px 2px grey">Pay Loan</button>
         <%= render 'layouts/pay_loan', edit_action: edit_action, heading: name, loans: loans %>

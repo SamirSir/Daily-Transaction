@@ -56,4 +56,12 @@ class MembershipsController < ApplicationController
     flash.notice = "'#{username(user_id)}' has been kicked out from '#{Group.find(group_id).name}' group !"
   end
 
+  def cancel_request
+    fparams = params.permit!
+    group_id = fparams['group_id'].to_i
+    user_id = fparams['member_id'].to_i
+    Membership.find_by(group_id: group_id, user_id: user_id).destroy
+    flash.notice = "Request to '#{username(user_id)}' has been canceled for '#{Group.find(group_id).name}' group !"
+  end
+
 end

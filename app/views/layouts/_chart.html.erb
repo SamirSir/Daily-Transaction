@@ -1,13 +1,13 @@
 <%# total ISE %>
 <hr>
 <div class="text-center">
-    <h5 class="font-weight-bold">Total <%= ise_type %>:<i> Rs. <%= total_ise_amount ise %></i></h5> 
+    <h5 class="font-weight-bold">Total <%= ise_type %>:<i> Rs. <%= total_ise_amount ise %></i></h5>
 </div>
 <hr>
 <%# chart %>
 <% if !ise.empty? %>
     <div class="text-center mt-2">
-        <select id="chart_type" class="btn w-75" style="background-color: <%= lise_color(ise_type) %>;" >
+        <select id="isel_chart_type" class="btn w-75" style="background-color: <%= lise_color(ise_type) %>;" >
             <option value="column_chart">Column Chart</option>
             <option value="bar_chart">Bar Chart</option>
             <option value="pie_chart">Pie Chart</option>
@@ -38,28 +38,20 @@
 
 
 <script type="text/javascript">
-
 $(document).ready(function(){
 
-$("#chart_type").val("column_chart");
-
-$(function(){
-
-    $("#chart_type").on("change", function(){
-        var chart_type = $(this).val();
-        $('div.chart').hide();
-        $("#"+chart_type).show(900);
+    $( document ).on('turbolinks:load', function() {
+        $("#isel_chart_type").val("column_chart");
     });
-      
-}); 
+
+    $(function(){
+
+        $("#isel_chart_type").on("change", function(){
+            var chart_type = $(this).val();
+            $('div.chart').hide();
+            $("#"+chart_type).show(900);
+        });
+    });
+
 });
-
-// $( document ).on('turbolinks:load', function() {
-//   $("#chart_type").trigger("reset");
-//   $("#chart_type").get(0).reset();
-//   $("#chart_type")[0].reset();
-//   $("#chart_type").val("column_chart");
-// });
-
-
 </script>

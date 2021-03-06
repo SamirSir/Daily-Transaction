@@ -6,3 +6,27 @@
     min-height: 450px;
     margin-bottom: 2rem;
 }
+
+.profile-container{
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    // align-items: center;
+    // justify-content: center;
+}
+
+.profile-pic {
+    display: flex;
+    place-items: center;
+    width: 10em;
+    height: 10em;
+    border-radius: 5em;
+    overflow: hidden;
+    background-color: grey;
+}
+
+.image{
+    max-width: 10em;
+    max-height: 10em;
+    // border-radius: 5em;
+}

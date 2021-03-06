@@ -42,14 +42,15 @@
             <div class="">
                 <%# background image here %>
                 <div class="cover_pic_background">
-                    <div style="position:relative; top: 7em;">
-                        <% if @profile["profile_pic"] == "" %>
-                            <%= image_tag "default_pp1.png", style: "width: 10em; border-radius: 10em;" %>
-                        <% else %>
-                            <%= image_tag url_for(@profile.profile_pic), style: "width: 10em; height: 10em; border-radius: 5em;" %>
-                        <% end %>
-
-                        <h4 class="font-weight-bold"><%= @profile["name"] %></h4>
+                    <div class="text-center profile-container" style="position:relative; top: 7em;">
+                        <div class="profile-pic">
+                            <% if @profile["profile_pic"] == "" %>
+                                <%= image_tag "default_pp1.png", class: "image" %>
+                            <% else %>
+                                <%= image_tag url_for(@profile.profile_pic), class: "image" %>
+                            <% end %>
+                        </div>
+                        <div class="font-weight-bold h4"><%= @profile["name"] %></div>
                         <div class="text-secondary"><%= @profile["bio"] %></div>
 
                     </div>

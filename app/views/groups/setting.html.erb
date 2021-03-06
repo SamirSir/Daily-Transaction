@@ -18,6 +18,7 @@
                 <% else %>
                     <% @groups.each do |g| %>
                         <div class="row invitation-group">
+                            <%# Leave or destroy group %>
                             <div class="col-12">
                                 <div class="row">
                                     <div class="col-7">
@@ -35,6 +36,7 @@
                                 </div>
                             </div>
 
+                            <%# kickout member %>
                             <div class="col-12">
                                 <% members_of_group(g[0]).each do |member| %>
                                     <div class="row my-2">
@@ -55,12 +57,28 @@
                                     </div>
                                 <% end %>
                             </div>
+
+                            <%# cancel request for pending member %>
+                            <div class="col-12">
+                                <% Group.find(g[0]).pending_members.each do |member| %>
+                                    <div class="row my-2">
+                                        <div class="col-7 text-right">
+                                            <span class="invitation-from"><%= username(member.id) %></span>
+                                        </div>
+                                        <div class="col-5 text-center">
+                                            <button class="kick-out shadow btn btn-primary btn-sm" data-toggle="modal" data-target="#cancelMemberRequest<%= g[0] %><%= member.id %>">Cancel Request</button>
+                                            <%= render 'layouts/cancel_member_request', group: g, member: member %>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+
                         </div>
 
                         <% if @groups.count > 0 %>
                         <hr>
                         <% end %>
-
+                    <%# group end %>
                     <% end %>
                 <% end %>
             </div>
@@ -118,6 +136,24 @@ $(document).ready(function(){
             dataType: 'json',
             // membership controller have current user
             data: { group_id: group_id },
+            success: function(response){
+                location.reload();
+            },
+            error: function(e){
+                console.log(e)
+            },
+        });
+    });
+
+     // cancel member request
+    $(".cancelMemberRequest").on("click", function(){
+        let group_id = $(this).attr('data-group-id');
+        let member_id = $(this).attr('data-member-id');
+        $.ajax({
+            url: '/memberships/cancel_request',
+            type: 'delete',
+            dataType: 'json',
+            data: { group_id, member_id },
             success: function(response){
                 location.reload();
             },

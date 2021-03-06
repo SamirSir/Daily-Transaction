@@ -29,7 +29,7 @@ edit_action: "/groups/#{@group.id}/loans/edit"
                         <td><%= ise.amount %></td>
                         <td><%= ise.description.truncate(15) %></td>
                         <% if group_of(ises) !=0 %>
-                        <td><%= username(ise.user_id) %></td>
+                        <td><a href="<%= profiles_path(ise.user_id) %>"><%= username(ise.user_id) %></a></td>
                         <% end %>
                         <td>
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#viewDetail<%= ise_title %><%= ise.id %>">View</button>
